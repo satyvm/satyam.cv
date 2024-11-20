@@ -4,7 +4,7 @@ export const generalData = {
   jobTitle: "Finance, Crypto, Web",
   website: "https://www.satyvm.com",
   about:
-    "Namaste, Satyam here, balancing finance, crypto and web dev for work. But when I am free, you can find me shooting hoops.",
+      "Hey there! I’m Sam – balancing finance, crypto, and web dev by day, and shooting hoops by night. Code. Invest. Shoot. Repeat.",
   contacts: [
     {
       label: "Email",
