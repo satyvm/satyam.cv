@@ -3,10 +3,10 @@ export const contentData = [
     title: "Work Experience",
     items: [
       {
-        title: "Crypto Fund Analyst Intern",
+        title: "Crypto Analyst",
         subTitle: "Remote",
         date: "2024 August - Present",
-        description: "Creating and managing a crypto fund.",
+        description: "Bringing the crypto fund to India.",
       },
       {
         title: "Front-End/Crypto Developer at Freelance",
