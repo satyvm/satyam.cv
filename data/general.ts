@@ -8,8 +8,8 @@ export const generalData = {
   contacts: [
     {
       label: "Email",
-      value: "hello@satyvm.com",
-      href: "mailto:hello@satyvm.com",
+      value: "hi@satyvm.com",
+      href: "mailto:hi@satyvm.com",
     },
     {
       label: "Twitter",
@@ -25,6 +25,11 @@ export const generalData = {
       label: "LinkedIn",
       value: "satyvm",
       href: "https://www.linkedin.com/in/satyvm",
+    },
+    {
+      label: "Farcaster",
+      value: "satyvm",
+      href: "https://farcaster.xyz/satyvm",
     },
   ],
 };

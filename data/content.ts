@@ -3,10 +3,16 @@ export const contentData = [
     title: "Work Experience",
     items: [
       {
+        title: "Tech Lead",
+        subTitle: "valura.ai, Bengaluru",
+        date: "2025 April - Present",
+        description: "Tapping UAE Capital.",
+      },
+      {
         title: "Crypto Analyst",
-        subTitle: "Remote",
+        subTitle: "2Cents Capital, Bengaluru",
         date: "2024 August - Present",
-        description: "Bringing the crypto fund to India.",
+        description: "Bridging the crypto fund to India.",
       },
       {
         title: "Front-End/Crypto Developer at Freelance",
