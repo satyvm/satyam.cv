@@ -1,21 +1,23 @@
 ---
 import { themeConfig } from '@/config'
 const today = new Date()
+const istTime: string = new Date().toLocaleTimeString("en-US", {
+  timeZone: "Asia/Kolkata",
+  hour: "2-digit", 
+  minute: "2-digit",
+});
+console.log(istTime); 
 ---
 
 <footer>
   <div class="footer-content">
     <div class="copyright">
       <span class="date">
-        &copy;
-        {today.getFullYear()}
+        {istTime}{' '}in New Delhi, India
       </span>
-      {themeConfig.site.author}
     </div>
     <div class="powered-by">
-      Powered by{' '}
-      <a href="https://astro.build">Astro</a> +{' '}
-      <a href="https://github.com/the3ash/astro-chiri">Chiri</a>
+      <a href="https://github.com/satyvm">Github</a>
     </div>
   </div>
 </footer>
