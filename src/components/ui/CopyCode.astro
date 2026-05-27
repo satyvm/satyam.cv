@@ -23,6 +23,36 @@ import { themeConfig } from '@/config'
       return
     }
 
+    const copyResetTimers = new WeakMap()
+
+    function setCopyState(button, state) {
+      button.dataset.copyState = state
+    }
+
+    async function copyText(text) {
+      await navigator.clipboard.writeText(text)
+      return true
+    }
+
+    function showIdleState(button) {
+      setCopyState(button, 'idle')
+      button.innerHTML = copyIcon
+    }
+
+    function showCopiedState(button) {
+      window.clearTimeout(copyResetTimers.get(button))
+
+      setCopyState(button, 'copied')
+      button.innerHTML = copiedIcon
+
+      const resetTimer = window.setTimeout(() => {
+        copyResetTimers.delete(button)
+        showIdleState(button)
+      }, 1500)
+
+      copyResetTimers.set(button, resetTimer)
+    }
+
     const copyButtons = document.querySelectorAll('.copy-button')
 
     copyButtons.forEach((button) => {
@@ -47,88 +77,17 @@ import { themeConfig } from '@/config'
         button.innerHTML = copyIcon
       }
 
-      button.style.opacity = '0'
-      button.style.pointerEvents = 'none'
-
-      // Determine the container to attach hover events
-      let container = preElement
-      const parent = button.parentElement
-      if (parent && parent.classList.contains('copy-code-wrapper')) {
-        container = parent
-      }
-
-      container.addEventListener('mouseenter', () => {
-        button.style.opacity = '1'
-        button.style.pointerEvents = 'auto'
-      })
-
-      container.addEventListener('mouseleave', () => {
-        if (!button.hasAttribute('data-copying')) {
-          button.style.opacity = '0'
-          button.style.pointerEvents = 'none'
-        }
-      })
+      setCopyState(button, 'idle')
 
       button.addEventListener('click', async () => {
         const codeText = codeElement.textContent || ''
 
         try {
-          // Primary method: use modern clipboard API
-          await navigator.clipboard.writeText(codeText)
-          button.setAttribute('data-copying', 'true')
-          button.innerHTML = copiedIcon
-
-          setTimeout(() => {
-            if (!container.matches(':hover')) {
-              button.style.opacity = '0'
-              button.style.pointerEvents = 'none'
-            }
-            button.removeAttribute('data-copying')
-
-            setTimeout(() => {
-              button.innerHTML = copyIcon
-            }, 500)
-          }, 1500)
-        } catch (err) {
-          console.error('Failed to copy code:', err)
-
-          // Fallback method: create temporary textarea for older browsers
-          try {
-            const textArea = document.createElement('textarea')
-            textArea.value = codeText
-            textArea.style.position = 'fixed'
-            textArea.style.opacity = '0'
-            document.body.appendChild(textArea)
-            textArea.focus()
-            textArea.select()
-
-            navigator.clipboard
-              .writeText(codeText)
-              .then(() => {
-                document.body.removeChild(textArea)
-              })
-              .catch(() => {
-                console.error('Both clipboard methods failed')
-                document.body.removeChild(textArea)
-              })
-          } catch (fallbackErr) {
-            console.error('All clipboard methods failed:', fallbackErr)
-          }
-
-          button.setAttribute('data-copying', 'true')
-          button.innerHTML = copiedIcon
-
-          setTimeout(() => {
-            if (!container.matches(':hover')) {
-              button.style.opacity = '0'
-              button.style.pointerEvents = 'none'
-            }
-            button.removeAttribute('data-copying')
-
-            setTimeout(() => {
-              button.innerHTML = copyIcon
-            }, 500)
-          }, 1500)
+          await copyText(codeText)
+          showCopiedState(button)
+        } catch (error) {
+          console.error('Failed to copy code:', error)
+          showIdleState(button)
         }
       })
     })
@@ -169,6 +128,13 @@ import { themeConfig } from '@/config'
     backdrop-filter: blur(48px);
     opacity: 0;
     pointer-events: none;
+  }
+
+  .copy-code-wrapper:hover .copy-button,
+  .copy-button:focus-visible,
+  .copy-button[data-copy-state='copied'] {
+    opacity: 1;
+    pointer-events: auto;
   }
 
   body[data-copy-code='disabled'] .copy-button {
