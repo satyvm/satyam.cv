@@ -9,11 +9,7 @@ pubDate: '2026-06-11'
 
 by [Satyam](https://medium.com/?source=post_page---byline--8db1aec6f838---------------------------------------)
 
-A Smart Contract Language on the rise
--------------------------------------
-
-
-
+## A Smart Contract Language on the rise
 
 “Move,” a language that has been rising recently with the development of emerging blockchains like Aptos and Sui. Now, we can watch the steady development in Solana.
 
@@ -21,8 +17,7 @@ A Smart Contract Language on the rise
 
 Let’s begin by deep-diving into Move to understand it better,
 
-Why Move?
----------
+## Why Move?
 
 It was originally built by Facebook’s Libra/Diem Blockchain — a payment network. The language came into existence with the native support for ownership/assets which other languages were lacking. The design of Move defines custom resource types forcing a resource can’t be copied or implicitly discarded, only moved between program storage locations. Basically, the safety is implemented by Move’s type system.
 
@@ -65,12 +60,12 @@ An example of Move from [the Move book](https://move-language.github.io/move/):
 ```
 module 0x42::test {
     struct Example has copy, drop { i: u64 }
-    
+
     use std::debug;
     friend 0x42::another_test;
-    
+
     const ONE: u64 = 1;
-    
+
     public fun print(x: u64) {
         let sum = x + ONE;
         let example = Example { i: sum };
@@ -93,8 +88,7 @@ Even Aptos and Sui (Move-based blockchains) are fairly new blockchains, they hav
 
 To make this read more interesting I figured why not get to know the behind-the-scenes of the project Move on Solana. It’s a good way to give your brain a headache, at least to mine, lol.
 
-Move on Solana
---------------
+## Move on Solana
 
 Before getting into all the heavy stuff, knowing how Move works is convenient to understand.
 
@@ -132,9 +126,9 @@ It makes sense to replace the Rust source code with the Move source code and gen
 
 In Rust, we have a few options to interface to LLVM:
 
-*   [llvm-sys](https://docs.rs/llvm-sys/latest/llvm_sys/) — raw unsafe bindings to the LLVM C API
-*   [inkwell](https://thedan64.github.io/inkwell/inkwell/index.html) — idiomatic Rust bindings to `llvm-sys`
-*   [llvm-ir](https://docs.rs/llvm-ir/latest/llvm_ir/) — another high-level Rust binding
+- [llvm-sys](https://docs.rs/llvm-sys/latest/llvm_sys/) — raw unsafe bindings to the LLVM C API
+- [inkwell](https://thedan64.github.io/inkwell/inkwell/index.html) — idiomatic Rust bindings to `llvm-sys`
+- [llvm-ir](https://docs.rs/llvm-ir/latest/llvm_ir/) — another high-level Rust binding
 
 **“llvm-sys”, llvm’s Rust C bindings stands out as the best option and it was used to develop the current** [**Move-LLVM backend**](https://github.com/anza-xyz/move/tree/llvm-sys/language/tools/move-mv-llvm-compiler)**.**
 
@@ -148,14 +142,13 @@ The Move VM is a stack machine, and LLVM is a register machine, so how to transl
 
 Another technical problem that arises is how to deal with **missing LLVM APIs**. While LLVM C APIs have almost every feature, usually, developer needs to add their little library to expose the C++ APIs.
 
-Future?
--------
+## Future?
 
 Now you might all agree that Move is an amazing piece of technology. And I believe having Move on Solana in the long run is worth it.
 
 There will be more problems to be solved as the project moves forward. But when the project Move is concluded, I will be back with “Coding Move on Solana”.
 
-Hope you liked it. For more such content, _follow me on_ [_M_edium](https://medium.com/) _or_ [_Twitter_](https://twitter.com/satyvm)_._
+Hope you liked it. For more such content, _follow me on_ [\_M_edium](https://medium.com/) _or_ [_Twitter_](https://twitter.com/satyvm)_._
 
 Till then, adiós!
 

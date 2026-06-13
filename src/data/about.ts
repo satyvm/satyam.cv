@@ -12,7 +12,8 @@ export const workExperience: ExperienceEntry[] = [
     period: 'Aug 2024 – Dec 2025',
     title: 'Infrastructure Lead',
     organization: '2Cents Group · Valura.AI & 2Cents Capital',
-    description: 'Architecting and maintaining cloud infrastructure, deployments, and internal tooling for various web and blockchain projects.',
+    description:
+      'Architecting and maintaining cloud infrastructure, deployments, and internal tooling for various web and blockchain projects.',
     url: 'https://valura.ai'
   },
   {
@@ -26,7 +27,7 @@ export const workExperience: ExperienceEntry[] = [
     period: '2021 – 2023',
     title: 'DevOps Coordinator',
     organization: 'Saarang, IIT Madras',
-    description: "Managed infrastructure and CI/CD pipelines for one of India's largest student-run cultural festivals.",
+    description: "Managed infrastructure and CI/CD pipelines for one of India's largest student-run cultural festivals."
   }
 ]
 
@@ -57,13 +58,14 @@ export const projects: ExperienceEntry[] = [
     period: '',
     title: 'Home Network Infrastructure',
     description: 'A robust local network setup focusing on privacy and uptime monitoring with VPN.',
-    meta: 'Pi-hole · Unbound · Uptime Kuma',
+    meta: 'Pi-hole · Unbound · Uptime Kuma'
   },
   {
     period: '',
     title: 'FluXtream',
     organization: 'Aptos Winter School 2023, IIT Bombay',
-    description: 'Architected a crypto streaming platform on the Aptos blockchain, enabling users to stream tokens over time through programmable payment flows.',
+    description:
+      'Architected a crypto streaming platform on the Aptos blockchain, enabling users to stream tokens over time through programmable payment flows.',
     meta: 'Crypto Streaming · Aptos',
     url: 'https://github.com/orgs/FluXtream-Move/repositories'
   },
@@ -79,7 +81,8 @@ export const projects: ExperienceEntry[] = [
     period: '',
     title: 'Optimaz.me',
     organization: 'Finalist, Metaverse Hackathon by Encode, Online',
-    description: 'Developed a token-gated 3D metaverse game with Vue.js, integrating blockchain-based access control for in-game assets and dynamic UI interactions.',
+    description:
+      'Developed a token-gated 3D metaverse game with Vue.js, integrating blockchain-based access control for in-game assets and dynamic UI interactions.',
     meta: 'Metaverse · Vue.js · Optimism',
     url: 'https://www.optimaz.me/'
   }

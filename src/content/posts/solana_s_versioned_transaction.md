@@ -9,11 +9,7 @@ pubDate: '2026-06-12'
 
 by [Satyam](https://medium.com/?source=post_page---byline--73200e7f7a1a---------------------------------------)
 
-Looking into the new lookup table
----------------------------------
-
-
-
+## Looking into the new lookup table
 
 Solana is fast; I mean, it allows hyper-parallelized processing of transactions, in turn enabling a high TPS. But there’s a catch. For even higher TPS, the transaction size is limited to the IPv6 MTU standard, which is 1280 bytes, after accounting for headers, leaving 1232 bytes for serialized transactions.
 
@@ -29,10 +25,10 @@ This article will explore exactly how everything works under the hood and how yo
 
 The legacy transaction is comprised of a compact array of signatures (64 bytes for each signature) and a message. The Legacy Message has four elements of data, which are,
 
-*   Header (3 bytes)
-*   **A compact array of account addresses** (32 bytes for each account)
-*   Recent Blockhash (32 bytes)
-*   Compact Array of Instructions
+- Header (3 bytes)
+- **A compact array of account addresses** (32 bytes for each account)
+- Recent Blockhash (32 bytes)
+- Compact Array of Instructions
 
 If you don’t know what a compact array is, _“The compact array is an array serialized to have the number of items (special multi-byte encoding, compact-u16) and then all the items.”_
 
@@ -54,13 +50,12 @@ In fact, it is possible for an Ethereum account to send to multiple addresses wi
 
 The solution comes with the update to the legacy transaction in the versioned transaction (transaction v0). So, what’s comes with Transaction v0?
 
-*   **Introduces a new program that manages on-chain Address lookup tables (LUTs).**
-*   **New Transaction format, which makes use of LUTs.**
+- **Introduces a new program that manages on-chain Address lookup tables (LUTs).**
+- **New Transaction format, which makes use of LUTs.**
 
 Now, let’s delve into the idea of Address Lookup tables,
 
-Address Lookup Tables (ALTs or LUTs)
-------------------------------------
+## Address Lookup Tables (ALTs or LUTs)
 
 ALTs stores address in an on-chain array(table-like). After addresses are stored on-chain in an address lookup table account, they may be succinctly referenced in a transaction using a 1-byte u8 index rather than a full 32-byte address. As indices take u8 memory value, we can have a maximum of 256 accounts (2⁸).
 
@@ -79,8 +74,7 @@ pub enum VersionedMessage {
 }
 ```
 
-MessageV0, What changed?
-------------------------
+## MessageV0, What changed?
 
 1.  **Message Header:** Unchanged
 2.  **Compact array of Accounts:** Unchanged
@@ -110,8 +104,7 @@ Enough theory behind the versioned transaction. From a developer's point of view
 
 ![captionless image](./_assets/solana_s_versioned_transaction_4.jpeg)
 
-RPC Changes
------------
+## RPC Changes
 
 Some methods that got updated are:
 
@@ -146,8 +139,7 @@ curl <http://localhost:8899> -X POST -H "Content-Type: application/json" -d \\
 
 Now, let’s talk about how you can send a versioned transaction request,
 
-Sending a Versioned Transaction
--------------------------------
+## Sending a Versioned Transaction
 
 Initially, if you wanted to send the legacy transaction, the code would have looked like this,
 
@@ -202,8 +194,7 @@ const { signature } = await provider.signAndSendTransaction(versionedTransaction
 await connection.getSignatureStatus(signature);
 ```
 
-Forging an Address Lookup table
--------------------------------
+## Forging an Address Lookup table
 
 We can use the `AddressLookupTableProgram` inside`@solana/web3.js` to construct the lookup table effectively. Use the `createLookupTable` function to build the table, then create a transaction, sign it, and send it to create a lookup table on-chain.
 
@@ -251,8 +242,7 @@ const extensionSignature = await signAndSendTransaction(provider, extensionTrans
 
 Awesome! We created the lookup table, but how about we use them now?
 
-Utilizing the Address Lookup table
-----------------------------------
+## Utilizing the Address Lookup table
 
 First, fetch the accounts of the Address lookup table we created and read all the addresses.
 
@@ -290,8 +280,7 @@ const signature = await signAndSendTransaction(provider, transactionV0);
 
 But you might be thinking now, I want to try out, here you go..
 
-Get your hand dirty
--------------------
+## Get your hand dirty
 
 Let’s get on with this! Clone a repo using the following command,
 
@@ -327,6 +316,6 @@ Your terminal will look something like this,
 
 Congratulations! 🎉 You’ve successfully run the code. If you observe, you will see the transaction size is hugely reduced. That’s how much the lookup table is effective.
 
-This was a very deep dive into the inner workings of the new versioned transaction Solana introduced. Hope you liked it. For more such content, _follow me on_ [_M_edium](https://medium.com/) _or on_ [_Twitter_](https://twitter.com/satyvm)_._
+This was a very deep dive into the inner workings of the new versioned transaction Solana introduced. Hope you liked it. For more such content, _follow me on_ [\_M_edium](https://medium.com/) _or on_ [_Twitter_](https://twitter.com/satyvm)_._
 
 _Thank you for reading._

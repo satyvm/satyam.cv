@@ -19,19 +19,21 @@ const posts = await getSortedFilteredPosts()
     <section class="section">
       <h2 class="section-label">Videos</h2>
       <ul class="video-list">
-        {videos.map((video) => (
-          <li>
-            <a href={video.url} target="_blank" rel="noopener noreferrer" class="hover-item">
-              <div class="video-item">
-                <p class="title">{video.title}</p>
-                <div class={themeConfig.general.postListDottedDivider ? 'dotted-divider' : 'divider'} />
-                <p class="date font-features">
-                  <FormattedDate date={video.date} context="list" />
-                </p>
-              </div>
-            </a>
-          </li>
-        ))}
+        {
+          videos.map((video) => (
+            <li>
+              <a href={video.url} target="_blank" rel="noopener noreferrer" class="hover-item">
+                <div class="video-item">
+                  <p class="title">{video.title}</p>
+                  <div class={themeConfig.general.postListDottedDivider ? 'dotted-divider' : 'divider'} />
+                  <p class="date font-features">
+                    <FormattedDate date={video.date} context="list" />
+                  </p>
+                </div>
+              </a>
+            </li>
+          ))
+        }
       </ul>
     </section>
 
@@ -133,7 +135,14 @@ const posts = await getSortedFilteredPosts()
 
   .font-features {
     font-variant-numeric: tabular-nums;
-    font-feature-settings: 'tnum' 1, 'zero' 0, 'cv01' 1, 'cv02' 1, 'calt' 1, 'ss03' 1, 'ordn' 1;
+    font-feature-settings:
+      'tnum' 1,
+      'zero' 0,
+      'cv01' 1,
+      'cv02' 1,
+      'calt' 1,
+      'ss03' 1,
+      'ordn' 1;
   }
 
   .placeholder {

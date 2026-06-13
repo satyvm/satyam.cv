@@ -9,13 +9,9 @@ pubDate: '2026-06-13'
 
 by [Satyam](https://medium.com/?source=post_page---byline--b101c805ff90---------------------------------------)
 
-A Precompile for secp256r1 Curve Support
-----------------------------------------
-
-
+## A Precompile for secp256r1 Curve Support
 
 2
-
 
 If you see the original proposal [RIP-7212 (formerly EIP-7212)](https://eips.ethereum.org/EIPS/eip-7212), it says,
 
@@ -29,8 +25,7 @@ First up is Externally owned accounts.
 
 Externally owned accounts are accounts controlled by anyone with private keys. The basic idea is to create a pair of cryptographic keypairs, one public, and one private key. It can be done using a regular Diffie Hellman algorithm (the discrete logarithm method), which seems much more straightforward than the Elliptic curve digital signature method. So why an elliptic curve?
 
-Elliptic Curves
----------------
+## Elliptic Curves
 
 Elliptic curves are more computationally efficient and use shorter keys, which saves transaction fees compared to other algorithms at work. Let’s understand it a little.
 
@@ -80,8 +75,7 @@ For example, the [Apple secure enclave](https://developer.apple.com/documentatio
 
 We need to know more about account abstraction to know what RIP-7212 brings to the table.
 
-EIP-4337: Account abstraction
------------------------------
+## EIP-4337: Account abstraction
 
 The idea was first tossed in 2017 with the proposal of EIP-86 by Vitalik Butrin. However, the notion of account abstraction existed only with the proposal of EIP-4337, as it avoided making changes to the consensus-layer protocol.
 
@@ -122,7 +116,7 @@ _Bonus. Still don’t know the reason for it being RIP, not EIP?_ So, other will
 7.  [https://www.odaily.news/en/post/5188615](https://www.odaily.news/en/post/5188615)
 8.  [https://dappworks.com/why-did-satoshi-decide-to-use-secp256k1-instead-of-secp256r1/](https://dappworks.com/why-did-satoshi-decide-to-use-secp256k1-instead-of-secp256r1/)
 
-Hope you liked it. For more such content, _follow me on_ [_M_edium](https://medium.com/) _or_ [_Twitter_](https://twitter.com/satyvm)_._
+Hope you liked it. For more such content, _follow me on_ [\_M_edium](https://medium.com/) _or_ [_Twitter_](https://twitter.com/satyvm)_._
 
 Till then, adiós!
 

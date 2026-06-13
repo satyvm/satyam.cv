@@ -4,28 +4,33 @@ import { themeConfig } from '@/config'
 import { categories } from '@/data/library'
 ---
 
-<IndexLayout title={`Library - ${themeConfig.site.title}`} description="Interesting links, articles, videos, and books.">
+<IndexLayout
+  title={`Library - ${themeConfig.site.title}`}
+  description="Interesting links, articles, videos, and books."
+>
   <main>
     <p class="library-description">Things I go back to regularly.</p>
 
-    {categories.map((category) => (
-      <section class="section">
-        <h2 class="section-label">{category.label}</h2>
-        <ul>
-          {category.items.map((item) => (
-            <li>
-              <a href={item.url} target="_blank" rel="noopener noreferrer" class="hover-item">
-                <div class="list-item">
-                  <p class="title">{item.title}</p>
-                  <div class="divider" />
-                  <span class="arrow">↗</span>
-                </div>
-              </a>
-            </li>
-          ))}
-        </ul>
-      </section>
-    ))}
+    {
+      categories.map((category) => (
+        <section class="section">
+          <h2 class="section-label">{category.label}</h2>
+          <ul>
+            {category.items.map((item) => (
+              <li>
+                <a href={item.url} target="_blank" rel="noopener noreferrer" class="hover-item">
+                  <div class="list-item">
+                    <p class="title">{item.title}</p>
+                    <div class="divider" />
+                    <span class="arrow">↗</span>
+                  </div>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))
+    }
 
     <div class="placeholder"></div>
   </main>
