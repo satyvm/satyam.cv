@@ -103,6 +103,7 @@ html {
   -webkit-overflow-scrolling: touch;
   -webkit-tap-highlight-color: transparent;
   transition: background-color 0.2s ease-out;
+  cursor: default;
 }
 
 body {
@@ -212,3 +213,14 @@ main {
   clip-path: inset(50%);
   white-space: nowrap;
 }
+
+.hover-item {
+  transition: opacity 0.15s ease-out;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  body:has(.hover-item:hover) .hover-item:not(:hover) {
+    opacity: 0.4;
+  }
+}
+

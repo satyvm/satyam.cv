@@ -10,7 +10,7 @@ const { posts } = Astro.props as PostListProps
   {
     posts.map((post) => (
       <li>
-        <a href={`/${post.id}/`}>
+        <a href={`/${post.id}/`} class="hover-item">
           <div class={`post-item ${!themeConfig.date.dateOnRight ? 'date-left' : ''}`}>
             {!themeConfig.date.dateOnRight && (
               <p class="date font-features">
@@ -52,14 +52,6 @@ const { posts } = Astro.props as PostListProps
   }
 
   @media (hover: hover) and (pointer: fine) {
-    ul:hover a {
-      opacity: 0.4;
-    }
-
-    ul:hover a:hover {
-      opacity: 1;
-    }
-
     ul:hover a:hover .divider {
       background-color: var(--text-tertiary);
       opacity: 0.75;

@@ -1,18 +1,10 @@
 ---
-title: 'About'
+title: 'What I Believe'
 ---
 
-<!--
-This content will be displayed at the top of the index page.
-You can leave this empty if you don’t want to show any content.
--->
+Developing skill through doing, guiltlessly exploring passion and interests, imbuing quality. Mindful that _everything around me is someone's life work._
 
-Crafting infra. _Open to work_. Contributing to open source and learning for CKA.
-
-I have spent my college days at IITM, participating in hackathons. After graduating in 2024 with a B.Tech. in ocean engg, I worked for a year at a hedge fund and a fintech startup. Explored areas of crypto, finance, and programming. There, I decided to focus on building around hardware and software, and now I enjoy my time learning while transitioning into a new role.
-
-All I want to do is build infra where users, devs, and AI rely on and be part of something meaningful.
-
-In my free time, I like to hoop, play valorant, and listen to music.
-
-Connect me at [x](https://x.com/satyvm), [linkedin](linkedin.com/in/satyvm), and [mail](mailto:hi@satyvm.com).
+- **Clarity over complexity.** The best ideas are often the simplest ones. The work is finding them.
+- **Building beats planning.** You learn more in a week of building than a month of strategizing. Ship early, iterate often.
+- **Writing is thinking.** If you can't explain it simply, you don't understand it well enough. Writing is how I figure out what I actually believe.
+- **The margins matter.** The best insights don't come from grinding harder. They come from creating space for your subconscious to work.

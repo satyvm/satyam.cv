@@ -1,29 +1,7 @@
 ---
 import IndexLayout from '@/layouts/IndexLayout.astro'
 import { themeConfig } from '@/config'
-
-const categories = [
-  {
-    label: "Articles & Essays",
-    items: [
-      { title: "The Architecture of a Modern Data Stack", url: "#" },
-      { title: "How to Build a Trading Bot", url: "#" },
-    ]
-  },
-  {
-    label: "Videos",
-    items: [
-      { title: "Distributed Systems in One Lesson", url: "#" },
-    ]
-  },
-  {
-    label: "Books",
-    items: [
-      { title: "Designing Data-Intensive Applications", url: "#" },
-      { title: "Site Reliability Engineering", url: "#" },
-    ]
-  }
-]
+import { categories } from '@/data/library'
 ---
 
 <IndexLayout title={`Library - ${themeConfig.site.title}`} description="Interesting links, articles, videos, and books.">
@@ -36,7 +14,7 @@ const categories = [
         <ul>
           {category.items.map((item) => (
             <li>
-              <a href={item.url} target="_blank" rel="noopener noreferrer">
+              <a href={item.url} target="_blank" rel="noopener noreferrer" class="hover-item">
                 <div class="list-item">
                   <p class="title">{item.title}</p>
                   <div class="divider" />
@@ -89,12 +67,6 @@ const categories = [
   }
 
   @media (hover: hover) and (pointer: fine) {
-    ul:hover a {
-      opacity: 0.4;
-    }
-    ul:hover a:hover {
-      opacity: 1;
-    }
     ul:hover a:hover .divider {
       background-color: var(--text-tertiary);
       opacity: 0.75;

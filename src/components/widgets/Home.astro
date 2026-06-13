@@ -1,0 +1,23 @@
+---
+import { getEntry } from 'astro:content'
+import { render } from 'astro:content'
+
+const homeEntry = await getEntry('home', 'home')
+// Check if there is actual content (excluding comments)
+const hasContent = homeEntry?.body ? homeEntry.body.replace(/<!--[\s\S]*?-->/g, '').trim().length > 0 : false
+const { Content } = hasContent && homeEntry ? await render(homeEntry) : { Content: null }
+---
+
+{
+  hasContent && Content && (
+    <div class="home prose">
+      <Content />
+    </div>
+  )
+}
+
+<style>
+  .home:not(:empty) {
+    margin-bottom: 1.25rem;
+  }
+</style>

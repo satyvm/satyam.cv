@@ -4,13 +4,9 @@ import PostList from '@/components/widgets/PostList.astro'
 import FormattedDate from '@/components/widgets/FormattedDate.astro'
 import { themeConfig } from '@/config'
 import { getSortedFilteredPosts } from '@/utils/draft'
+import { videos } from '@/data/videos'
 
 const posts = await getSortedFilteredPosts()
-
-const videos = [
-  { title: "Building a Solana Trading Bot", url: "#", date: new Date("2024-05-12") },
-  { title: "Interview on Tech & Infrastructure", url: "#", date: new Date("2024-03-08") },
-]
 ---
 
 <IndexLayout title={`Content - ${themeConfig.site.title}`} description="Writings and Videos by Satyam">
@@ -25,7 +21,7 @@ const videos = [
       <ul class="video-list">
         {videos.map((video) => (
           <li>
-            <a href={video.url} target="_blank" rel="noopener noreferrer">
+            <a href={video.url} target="_blank" rel="noopener noreferrer" class="hover-item">
               <div class="video-item">
                 <p class="title">{video.title}</p>
                 <div class={themeConfig.general.postListDottedDivider ? 'dotted-divider' : 'divider'} />
@@ -74,12 +70,6 @@ const videos = [
   }
 
   @media (hover: hover) and (pointer: fine) {
-    .video-list:hover a {
-      opacity: 0.4;
-    }
-    .video-list:hover a:hover {
-      opacity: 1;
-    }
     .video-list:hover a:hover .divider {
       background-color: var(--text-tertiary);
       opacity: 0.75;
