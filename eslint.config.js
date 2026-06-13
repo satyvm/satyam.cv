@@ -24,6 +24,12 @@ export default [
       'astro/no-set-html-directive': 'off'
     }
   },
+  {
+    files: ['scripts/**/*.ts'],
+    rules: {
+      'no-console': 'off'
+    }
+  },
   prettier,
   {
     ignores: [
