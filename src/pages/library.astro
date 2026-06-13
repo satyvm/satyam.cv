@@ -1,0 +1,143 @@
+---
+import IndexLayout from '@/layouts/IndexLayout.astro'
+import { themeConfig } from '@/config'
+
+const categories = [
+  {
+    label: "Articles & Essays",
+    items: [
+      { title: "The Architecture of a Modern Data Stack", url: "#" },
+      { title: "How to Build a Trading Bot", url: "#" },
+    ]
+  },
+  {
+    label: "Videos",
+    items: [
+      { title: "Distributed Systems in One Lesson", url: "#" },
+    ]
+  },
+  {
+    label: "Books",
+    items: [
+      { title: "Designing Data-Intensive Applications", url: "#" },
+      { title: "Site Reliability Engineering", url: "#" },
+    ]
+  }
+]
+---
+
+<IndexLayout title={`Library - ${themeConfig.site.title}`} description="Interesting links, articles, videos, and books.">
+  <main>
+    <p class="library-description">Things I go back to regularly.</p>
+
+    {categories.map((category) => (
+      <section class="section">
+        <h2 class="section-label">{category.label}</h2>
+        <ul>
+          {category.items.map((item) => (
+            <li>
+              <a href={item.url} target="_blank" rel="noopener noreferrer">
+                <div class="list-item">
+                  <p class="title">{item.title}</p>
+                  <div class="divider" />
+                  <span class="arrow">↗</span>
+                </div>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    ))}
+
+    <div class="placeholder"></div>
+  </main>
+</IndexLayout>
+
+<style>
+  .library-description {
+    color: var(--text-secondary);
+    margin: 0 0 2rem 0;
+  }
+
+  .section {
+    margin-bottom: 2.5rem;
+  }
+
+  .section-label {
+    font-size: var(--font-size-s);
+    font-weight: var(--font-weight-bold);
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin: 0 0 0.5rem 0;
+  }
+
+  ul {
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  a {
+    color: var(--text-primary);
+    display: block;
+    text-decoration: none;
+    transition: opacity 0.15s ease-out;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    ul:hover a {
+      opacity: 0.4;
+    }
+    ul:hover a:hover {
+      opacity: 1;
+    }
+    ul:hover a:hover .divider {
+      background-color: var(--text-tertiary);
+      opacity: 0.75;
+    }
+    ul:hover a:hover .arrow {
+      color: var(--text-primary);
+    }
+  }
+
+  .list-item {
+    height: 2.75rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .title {
+    margin: 0;
+    flex-shrink: 1;
+    min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .divider {
+    flex: 1 1 auto;
+    min-width: 3rem;
+    margin: 0 0.25rem;
+    height: 0.5px;
+    background-color: var(--border);
+  }
+
+  .arrow {
+    color: var(--text-secondary);
+    opacity: 0.75;
+    flex-shrink: 0;
+    font-size: var(--font-size-s);
+    transition: color 0.15s ease-out;
+  }
+
+  .placeholder {
+    height: 3rem;
+  }
+</style>

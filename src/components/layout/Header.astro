@@ -1,28 +1,84 @@
 ---
 import { themeConfig } from '@/config'
 import ThemeToggle from '@/components/ui/ThemeToggle.astro'
+
+const navLinks = [
+  { href: '/about', label: 'about' },
+  { href: '/content', label: 'content' },
+  { href: '/library', label: 'library' },
+  { href: '/satyam_resume.pdf', label: 'resume', external: true },
+]
+const currentPath = Astro.url.pathname
 ---
 
 <header>
   <nav>
-    <a href="/">{themeConfig.site.title}</a>
+    <div class="nav-left">
+      <a href="/" class="site-title">{themeConfig.site.title}</a>
+      <div class="nav-links">
+        {navLinks.map((link) => (
+          <a
+            href={link.href}
+            class:list={[{ active: currentPath === link.href || (link.href !== '/' && currentPath.startsWith(link.href)) }]}
+            target={link.external ? "_blank" : undefined}
+            rel={link.external ? "noopener noreferrer" : undefined}
+          >
+            {link.label}
+          </a>
+        ))}
+      </div>
+    </div>
     {themeConfig.general.themeToggle && <ThemeToggle />}
   </nav>
 </header>
+
 <style>
   header {
-    margin: 0;
+    margin: 0 0 2rem 0;
   }
+
   nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
-  header a {
+
+  .nav-left {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .site-title {
     font-weight: var(--font-weight-bold);
     color: var(--text-primary);
     text-decoration: none;
-    min-width: 3rem;
     display: inline-block;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 1.25rem;
+    align-items: center;
+  }
+
+  .nav-links a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: var(--font-size-s);
+    transition: color 0.2s ease-out;
+  }
+
+  .nav-links a:hover,
+  .nav-links a.active {
+    color: var(--text-primary);
+  }
+
+  @media (max-width: 480px) {
+    .nav-left {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
   }
 </style>

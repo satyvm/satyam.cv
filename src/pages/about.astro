@@ -1,0 +1,235 @@
+---
+import IndexLayout from '@/layouts/IndexLayout.astro'
+import { themeConfig } from '@/config'
+---
+
+<IndexLayout title={`About - ${themeConfig.site.title}`} description="About Satyam">
+  <main>
+    <!-- What I Believe -->
+    <section class="section">
+      <h2 class="section-label">What I Believe</h2>
+      <p class="beliefs-intro">
+        Developing skill through doing, guiltlessly exploring passion and interests, imbuing quality. Mindful that <em>everything around me is someone's life work.</em>
+      </p>
+      <ul class="beliefs">
+        <li><strong>Clarity over complexity.</strong> The best ideas are often the simplest ones. The work is finding them.</li>
+        <li><strong>Building beats planning.</strong> You learn more in a week of building than a month of strategizing. Ship early, iterate often.</li>
+        <li><strong>Writing is thinking.</strong> If you can't explain it simply, you don't understand it well enough. Writing is how I figure out what I actually believe.</li>
+        <li><strong>The margins matter.</strong> The best insights don't come from grinding harder. They come from creating space for your subconscious to work.</li>
+      </ul>
+    </section>
+
+    <!-- Work Experience -->
+    <section class="section">
+      <h2 class="section-label">Work</h2>
+
+      <div class="entry">
+        <a href="https://valura.ai" target="_blank" rel="noopener noreferrer" class="entry-link">
+          <div class="entry-row">
+            <span class="entry-title">Infrastructure Lead</span>
+            <div class="divider"></div>
+            <span class="entry-meta font-features">2024 – 2025</span>
+          </div>
+          <span class="entry-org">2Cents Group · Valura.AI & 2Cents Capital</span>
+          <p class="entry-summary">Architecting and maintaining cloud infrastructure, deployments, and internal tooling for various web and blockchain projects.</p>
+        </a>
+      </div>
+
+      <div class="entry">
+        <div class="entry-link group">
+          <div class="entry-row">
+            <span class="entry-title">DevOps Engineer</span>
+            <div class="divider"></div>
+            <span class="entry-meta font-features">2021 – 2023</span>
+          </div>
+          <span class="entry-org">Saarang, IIT Madras</span>
+          <p class="entry-summary">Managed infrastructure and CI/CD pipelines for one of India's largest student-run cultural festivals.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Education -->
+    <section class="section">
+      <h2 class="section-label">Education</h2>
+
+      <div class="entry">
+        <div class="entry-row">
+          <span class="entry-title">B.Tech, Naval Architecture</span>
+          <div class="divider"></div>
+          <span class="entry-meta font-features">2020 – 2024</span>
+        </div>
+        <span class="entry-org">Indian Institute of Technology, Madras</span>
+      </div>
+
+      <div class="entry">
+        <div class="entry-row">
+          <span class="entry-title">Semester Exchange</span>
+          <div class="divider"></div>
+          <span class="entry-meta font-features">2023</span>
+        </div>
+        <span class="entry-org">Seoul National University</span>
+      </div>
+    </section>
+
+    <!-- Projects -->
+    <section class="section">
+      <h2 class="section-label">Projects</h2>
+
+      <div class="entry">
+        <a href="https://github.com/satyvm/node" target="_blank" rel="noopener noreferrer" class="entry-link">
+          <div class="entry-row">
+            <span class="entry-title">Blockchain SRE & Infrastructure Lab</span>
+            <div class="divider"></div>
+            <span class="entry-meta">Docker · Terraform · AWS</span>
+          </div>
+        </a>
+      </div>
+
+      <div class="entry">
+        <div class="entry-row">
+          <span class="entry-title">Home Network Infrastructure</span>
+          <div class="divider"></div>
+          <span class="entry-meta">Pi-hole · Unbound · Uptime Kuma</span>
+        </div>
+      </div>
+
+      <div class="entry">
+        <a href="https://fluxtream.co" target="_blank" rel="noopener noreferrer" class="entry-link">
+          <div class="entry-row">
+            <span class="entry-title">FluXtream.co</span>
+            <div class="divider"></div>
+            <span class="entry-meta">Full-Stack · Aptos</span>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <div class="placeholder"></div>
+  </main>
+</IndexLayout>
+
+<style>
+  .section {
+    margin-bottom: 2.5rem;
+  }
+
+  .section-label {
+    font-size: var(--font-size-s);
+    font-weight: var(--font-weight-bold);
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin: 0 0 1rem 0;
+  }
+
+  .beliefs-intro {
+    margin: 0 0 1.25rem 0;
+    line-height: 1.75;
+    color: var(--text-primary);
+  }
+
+  .beliefs {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .beliefs li {
+    line-height: 1.65;
+    color: var(--text-secondary);
+  }
+
+  .beliefs strong {
+    color: var(--text-primary);
+    font-weight: var(--font-weight-bold);
+  }
+
+  .entry {
+    margin-bottom: 0.25rem;
+  }
+
+  .entry-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+
+  .entry-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    height: 2.75rem;
+  }
+
+  .entry-title {
+    color: var(--text-primary);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .divider {
+    flex: 1 1 auto;
+    min-width: 2rem;
+    height: 0.5px;
+    background-color: var(--border);
+    margin: 0 0.25rem;
+  }
+
+  .entry-meta {
+    color: var(--text-secondary);
+    opacity: 0.75;
+    letter-spacing: var(--spacing-s);
+    flex-shrink: 0;
+    white-space: nowrap;
+    font-size: var(--font-size-s);
+  }
+
+  .entry-org {
+    display: block;
+    color: var(--text-secondary);
+    opacity: 0.6;
+    font-size: var(--font-size-s);
+    margin-top: -0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .entry-summary {
+    font-size: var(--font-size-s);
+    color: var(--text-secondary);
+    margin: 0;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+
+  .font-features {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: 'tnum' 1, 'zero' 0, 'cv01' 1, 'cv02' 1, 'calt' 1, 'ss03' 1, 'ordn' 1;
+  }
+
+  .placeholder {
+    height: 3rem;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .entry-link:hover .entry-title {
+      opacity: 0.6;
+    }
+
+    .entry-link:hover .divider {
+      background-color: var(--text-tertiary);
+      opacity: 0.75;
+    }
+
+    .entry-link:hover .entry-summary {
+      max-height: 100px;
+      opacity: 0.8;
+      margin-top: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+  }
+</style>
