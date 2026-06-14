@@ -150,7 +150,7 @@ const { Content } = aboutEntry ? await render(aboutEntry) : { Content: null }
     display: flex;
     align-items: center;
     gap: 0.75rem;
-    height: 2.75rem;
+    min-height: 2.75rem;
   }
 
   .entry-title {
@@ -168,8 +168,8 @@ const { Content } = aboutEntry ? await render(aboutEntry) : { Content: null }
   }
 
   .entry-meta {
-    color: var(--text-secondary);
-    opacity: 0.75;
+    color: var(--text-primary);
+    opacity: 0.5;
     letter-spacing: var(--spacing-s);
     flex-shrink: 0;
     white-space: nowrap;
@@ -178,8 +178,8 @@ const { Content } = aboutEntry ? await render(aboutEntry) : { Content: null }
 
   .entry-org {
     display: block;
-    color: var(--text-secondary);
-    opacity: 0.6;
+    color: var(--text-primary);
+    opacity: 0.5;
     font-size: var(--font-size-s);
     margin-top: -0.5rem;
     margin-bottom: 0.5rem;
@@ -187,7 +187,7 @@ const { Content } = aboutEntry ? await render(aboutEntry) : { Content: null }
 
   .entry-summary {
     font-size: var(--font-size-s);
-    color: var(--text-secondary);
+    color: var(--text-primary);
     margin: 0;
     max-height: 0;
     opacity: 0;
@@ -219,13 +219,40 @@ const { Content } = aboutEntry ? await render(aboutEntry) : { Content: null }
 
     .entry-link:hover .entry-summary {
       max-height: 100px;
-      opacity: 0.8;
+      opacity: 0.6;
       margin-top: 0.5rem;
       margin-bottom: 0.5rem;
     }
 
     .entry-link:hover .entry-row + .entry-summary {
       margin-top: -0.5rem;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .entry-row {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.25rem;
+      padding-top: 0.5rem;
+      padding-bottom: 0.25rem;
+    }
+
+    .divider {
+      display: none;
+    }
+
+    .entry-title {
+      white-space: normal;
+    }
+
+    .entry-meta {
+      white-space: normal;
+    }
+
+    .entry-org {
+      margin-top: 0;
+      margin-bottom: 0.5rem;
     }
   }
 
