@@ -1,13 +1,9 @@
 ---
 title: 'Move, exploring its way into Solana'
-pubDate: '2026-06-11'
+pubDate: '2024-02-29'
 ---
 
-![captionless image](./_assets/move__exploring_its_way_into_solana_0.png)
-
-[Reference](https://medium.com/@satyvm/move-a-smart-contract-language-on-the-rise-8db1aec6f838)
-
-by [Satyam](https://medium.com/?source=post_page---byline--8db1aec6f838---------------------------------------)
+![Abstract logo of two intersecting blue and cyan rounded rectangles on a gradient background](./_assets/move__exploring_its_way_into_solana_0.png)
 
 ## A Smart Contract Language on the rise
 
@@ -23,7 +19,7 @@ It was originally built by Facebook’s Libra/Diem Blockchain — a payment netw
 
 In layman's terms, Move is statically typed and designed around modules giving it a fundamental advantage compared to other languages.
 
-![captionless image](./_assets/move__exploring_its_way_into_solana_1.png)
+![An illustration of human evolution depicting the progression from apes to modern man, with labels Solidity, Rust, Anchor, and Move](./_assets/move__exploring_its_way_into_solana_1.png)
 
 Move was designed while keeping four key goals in mind: first-class resources(assets), flexibility, safety, and verifiability.
 
@@ -35,7 +31,7 @@ Move was designed while keeping four key goals in mind: first-class resources(as
 
 **Verifiability:** Security and computational cost go hand in hand, we have to carefully weigh both. Move balances the two by using lightweight on-chain verification and advanced off-chain static verification tools.
 
-![captionless image](./_assets/move__exploring_its_way_into_solana_2.png)![Move and Solidity Blockchain State](./_assets/move__exploring_its_way_into_solana_3.png)
+![Diagram showing Move Blockchain State with global storage branching into Addresses, Resources, and Modules](./_assets/move__exploring_its_way_into_solana_2.png)![Move and Solidity Blockchain State](./_assets/move__exploring_its_way_into_solana_3.png)
 
 _The key difference is Solidity’s storage is address-based whereas Move’s storage is object-based._
 
@@ -49,7 +45,7 @@ So how Move is handling this? In the Move runtime, some of the checks are transp
 
 For example, due to checks and other declarations, the “Mint Authority” code in Solana and Move (Sui) has a distinct gap in size.
 
-![captionless image](./_assets/move__exploring_its_way_into_solana_4.png)
+![Code snippet comparison between Solana and Sui showing the difference in account checks](./_assets/move__exploring_its_way_into_solana_4.png)
 
 Apart from the checks, Solana stores the addresses of other accounts in the form of pointers and doesn’t store the actual data. To access the accounts, they need to be passed every time and manually checked. On the other hand, in Move, we can directly access them using structs indefinitely without running any checks.
 
@@ -76,6 +72,9 @@ module 0x42::test {
 
 If you want to explore coding in Move you can check out [this curated list.](https://github.com/MystenLabs/awesome-move) Also, [this Move tutorial](https://github.com/move-language/move/blob/main/language/documentation/tutorial/README.md) is a good place to get started.
 
+::github{repo="MystenLabs/awesome-move"}
+::github{repo="move-language/move"}
+
 All this was a technical overview of the “Why Move?”. But do we have a community of developers who are interested in this?
 
 ### Move community
@@ -98,7 +97,7 @@ Move is built on Rust with ownership in mind and is strongly focused on simplici
 
 First, the Move code is compiled into Move bytecode, which runs in the Move VM for the Bytecode validation. The traditional architecture of the Move virtual machine:
 
-![captionless image](./_assets/move__exploring_its_way_into_solana_7.png)
+![Diagram showing Move Bytecode flowing into a Deserializer, then Verifier, Code Cache, and finally Executor](./_assets/move__exploring_its_way_into_solana_7.png)
 
 **There are three ways we can get Move on Solana:**
 
@@ -118,11 +117,11 @@ I know, LLVM can be intimidating to code. So why even try to do it? Because Sola
 
 First, The compiler breaks down the rust source code into lexemes, and then it verifies the correctness and validates the logic. In the second stage, the compiler generates the intermediate representation (IR) code. Now, the _LLVM optimizer_ comes into play, which complies IR into optimized IR code (LLVM bytecode). In the end, the optimized IR code is translated into Solana Binary Format (SBF, a Solanaized eBPF).
 
-![captionless image](./_assets/move__exploring_its_way_into_solana_9.png)
+![Handwritten flow diagram showing Rust compiling to IR, then LLVM Optimizer to Optimized IR, and finally SBF](./_assets/move__exploring_its_way_into_solana_9.png)
 
 It makes sense to replace the Rust source code with the Move source code and generate IR code.
 
-![captionless image](./_assets/move__exploring_its_way_into_solana_10.png)
+![Handwritten flow diagram showing Move compiling to IR, then LLVM Optimizer to Optimized IR, and finally SBF](./_assets/move__exploring_its_way_into_solana_10.png)
 
 In Rust, we have a few options to interface to LLVM:
 
@@ -131,6 +130,8 @@ In Rust, we have a few options to interface to LLVM:
 - [llvm-ir](https://docs.rs/llvm-ir/latest/llvm_ir/) — another high-level Rust binding
 
 **“llvm-sys”, llvm’s Rust C bindings stands out as the best option and it was used to develop the current** [**Move-LLVM backend**](https://github.com/anza-xyz/move/tree/llvm-sys/language/tools/move-mv-llvm-compiler)**.**
+
+::github{repo="anza-xyz/move"}
 
 ### Challenges of Porting Move
 
@@ -147,9 +148,3 @@ Another technical problem that arises is how to deal with **missing LLVM APIs**.
 Now you might all agree that Move is an amazing piece of technology. And I believe having Move on Solana in the long run is worth it.
 
 There will be more problems to be solved as the project moves forward. But when the project Move is concluded, I will be back with “Coding Move on Solana”.
-
-Hope you liked it. For more such content, _follow me on_ [\_M_edium](https://medium.com/) _or_ [_Twitter_](https://twitter.com/satyvm)_._
-
-Till then, adiós!
-
-_Thank you for reading._

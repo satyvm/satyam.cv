@@ -1,17 +1,11 @@
 ---
 title: 'What is RIP-7212?'
-pubDate: '2026-06-13'
+pubDate: '2024-05-30'
 ---
 
 ![Note: you can’t obtain a private key from the public key because of the nature of the cryptographic method used, for example, the elliptic curve method.](./_assets/what_is_rip_7212__0.png)
 
-[Reference](https://medium.com/@satyvm/what-is-rip-7212-b101c805ff90)
-
-by [Satyam](https://medium.com/?source=post_page---byline--b101c805ff90---------------------------------------)
-
 ## A Precompile for secp256r1 Curve Support
-
-2
 
 If you see the original proposal [RIP-7212 (formerly EIP-7212)](https://eips.ethereum.org/EIPS/eip-7212), it says,
 
@@ -37,7 +31,7 @@ In simple terms, the curve below is used to get random points on the curve by cr
 
 The elliptic curve is defined by following mathematical equation,
 
-![captionless image](./_assets/what_is_rip_7212__2.png)
+![The mathematical equation for an elliptic curve: y squared equals x cubed plus ax plus b](./_assets/what_is_rip_7212__2.png)
 
 by varying a and b, we can have multiple equations and their pair curves.
 
@@ -61,7 +55,7 @@ b = 5AC635D8 AA3A93E7 B3EBBD55 769886BC 651D06B0 CC53B0F6 3BCE3C3E 27D2604B
 
 Random seems more secure, but the fun fact is that Bitcoin started with secp256k1, aka the Koblitz curve. The reason comes from the conspiracy of the NSA controlling NIST, who might have created a backdoor using the random number generator in secp256r1 for a & b. Given the fact that the curve r1 is pseudo-randomized, thus such weak curves could be used under the attack. As a result, Satoshi decided to use a pre-defined pure Koblitz curve for Bitcoin. Not to mention, the Koblitz curve is more efficient, comparatively.
 
-![captionless image](./_assets/what_is_rip_7212__3.png)
+![Flowchart showing the creation and verification of a digital signature using an elliptic curve, private key, message, and public key](./_assets/what_is_rip_7212__3.png)
 
 Now, using the secp256k1 elliptic curve, a user can create a signature for a transaction using a private key, which anyone can use to verify if a particular transaction was signed by a public address or not. To understand this practically, there is this fantastic website that you can use: [https://andersbrownworth.com/blockchain/public-privatfantasticys/signatures.](https://andersbrownworth.com/blockchain/public-private-keys/signatures.)
 
@@ -107,17 +101,11 @@ _Bonus. Still don’t know the reason for it being RIP, not EIP?_ So, other will
 
 ### Resources:
 
-1.  [https://eips.ethereum.org/EIPS/eip-7212](https://eips.ethereum.org/EIPS/eip-7212)
-2.  [https://ethereum-magicians.org/t/eip-7212-precompiled-for-secp256r1-curve-support/14789](https://ethereum-magicians.org/t/eip-7212-precompiled-for-secp256r1-curve-support/14789)
-3.  [https://www.johndcook.com/blog/2018/08/21/a-tale-of-two-elliptic-curves/](https://www.johndcook.com/blog/2018/08/21/a-tale-of-two-elliptic-curves/)
-4.  [https://eips.ethereum.org/EIPS/eip-4337](https://eips.ethereum.org/EIPS/eip-4337)
-5.  [https://eprint.iacr.org/2023/939.pdf](https://eprint.iacr.org/2023/939.pdf)
-6.  [https://developer.apple.com/documentation/security/certificate_key_and_trust_services/keys/protecting_keys_with_the_secure_enclave](https://developer.apple.com/documentation/security/certificate_key_and_trust_services/keys/protecting_keys_with_the_secure_enclave)
-7.  [https://www.odaily.news/en/post/5188615](https://www.odaily.news/en/post/5188615)
-8.  [https://dappworks.com/why-did-satoshi-decide-to-use-secp256k1-instead-of-secp256r1/](https://dappworks.com/why-did-satoshi-decide-to-use-secp256k1-instead-of-secp256r1/)
-
-Hope you liked it. For more such content, _follow me on_ [\_M_edium](https://medium.com/) _or_ [_Twitter_](https://twitter.com/satyvm)_._
-
-Till then, adiós!
-
-_Thank you for reading._
+::link{url="https://eips.ethereum.org/EIPS/eip-7212"}
+::link{url="https://ethereum-magicians.org/t/eip-7212-precompiled-for-secp256r1-curve-support/14789"}
+::link{url="https://www.johndcook.com/blog/2018/08/21/a-tale-of-two-elliptic-curves/"}
+::link{url="https://eips.ethereum.org/EIPS/eip-4337"}
+::link{url="https://eprint.iacr.org/2023/939.pdf"}
+::link{url="https://developer.apple.com/documentation/security/certificate_key_and_trust_services/keys/protecting_keys_with_the_secure_enclave"}
+::link{url="https://www.odaily.news/en/post/5188615"}
+::link{url="https://dappworks.com/why-did-satoshi-decide-to-use-secp256k1-instead-of-secp256r1/"}
