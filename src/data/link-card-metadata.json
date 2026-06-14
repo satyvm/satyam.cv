@@ -1,1 +1,50 @@
-{}
+{
+  "https://dappworks.com/why-did-satoshi-decide-to-use-secp256k1-instead-of-secp256r1/": {
+    "title": "Why did Satoshi decide to use secp256k1 instead of secp256r1? - DappWorks",
+    "description": "Secp256k1 and secp256r1 are two commonly used curves. Hyperledger / Fabric developed by IBM is using secp256r1 while Bitcoin is using secp256k1. What is the difference between these two and why did Satoshi decide to use secp256k1 which is considered as a surprising choice at the time?",
+    "image": "https://dappworks.com/wp-content/uploads/2020/07/round-gold-colored-bitcoin-1036635.jpg",
+    "imageAlt": "Why did Satoshi decide to use secp256k1 instead of secp256r1? - DappWorks",
+    "siteName": "DappWorks",
+    "updatedAt": "2026-06-14T00:30:30.121Z"
+  },
+  "https://developer.apple.com/documentation/security/certificate_key_and_trust_services/keys/protecting_keys_with_the_secure_enclave": {
+    "title": "Protecting keys with the Secure Enclave | Apple Developer Documentation",
+    "description": "Create an extra layer of security for your private keys.",
+    "image": "https://docs.developer.apple.com/tutorials/developer-og.jpg",
+    "imageAlt": "Protecting keys with the Secure Enclave | Apple Developer Documentation",
+    "siteName": "Apple Developer Documentation",
+    "updatedAt": "2026-06-14T00:30:30.355Z"
+  },
+  "https://eips.ethereum.org/EIPS/eip-4337": {
+    "title": "ERC-4337: Account Abstraction Using Alt Mempool",
+    "description": "Account abstraction without consensus-layer protocol changes, instead relying on higher-layer infrastructure.",
+    "image": "https://eips.ethereum.org/assets/images/eip-og-image.png",
+    "imageAlt": "ERC-4337: Account Abstraction Using Alt Mempool",
+    "siteName": "Ethereum Improvement Proposals",
+    "updatedAt": "2026-06-14T00:30:28.969Z"
+  },
+  "https://ethereum-magicians.org/t/eip-7212-precompiled-for-secp256r1-curve-support/14789": {
+    "title": "EIP-7212: Precompiled for secp256r1 Curve Support",
+    "description": "Hi Magicians 🧙 🪄  The post is about EIP-7212 RIP-7212 which proposes adding a new precompiled contract to the EVM that allows signature verifications in the “secp256r1” elliptic curve by given parameters of message hash, r - s components of the signature, and x - y coordinates of the public key.  📌 This post explains moving the proposal from EIP to RIP category.  ✨ EIP Page (the PR):  https://eips.ethereum.org/EIPS/eip-7212  What are the use cases of the “secp256...",
+    "image": "https://ethereum-magicians.org/uploads/default/original/2X/e/e5bb6bb58438e9301c987ec778ccce164c4ed3ee.png",
+    "imageAlt": "EIP-7212: Precompiled for secp256r1 Curve Support",
+    "siteName": "Fellowship of Ethereum Magicians",
+    "updatedAt": "2026-06-14T00:30:30.341Z"
+  },
+  "https://www.johndcook.com/blog/2018/08/21/a-tale-of-two-elliptic-curves/": {
+    "title": "Elliptic curves secp256k1 and secp256r1",
+    "description": "The NIST recommends two elliptic curves based on 256-bit primes, the \"k\" and the \"r\" versions. What's the difference?",
+    "image": "https://www.johndcook.com/blog/wp-content/uploads/2022/05/twittercard.png",
+    "imageAlt": "Elliptic curves secp256k1 and secp256r1",
+    "siteName": "John D. Cook | Applied Mathematics Consulting",
+    "updatedAt": "2026-06-14T00:30:29.293Z"
+  },
+  "https://www.odaily.news/en/post/5188615": {
+    "title": "What exactly is EIP-7212, which frequently appears at the EthCC conference?",
+    "description": "This article will take you quickly understand EIP-7212.",
+    "image": "https://piccdn.0daily.com/202307/26070036/6676sj0hagbc1ejk",
+    "imageAlt": "What exactly is EIP-7212, which frequently appears at the EthCC conference?",
+    "siteName": "ODaily",
+    "updatedAt": "2026-06-14T00:30:31.467Z"
+  }
+}
