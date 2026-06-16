@@ -6,6 +6,7 @@ export interface LibraryItem {
 export interface LibraryCategory {
   label: string
   items: LibraryItem[]
+  divider?: boolean
 }
 
 export const categories: LibraryCategory[] = [
@@ -28,6 +29,15 @@ export const categories: LibraryCategory[] = [
         title: "Man's Search for Meaning by Victor Frankl",
         url: 'https://app.thestorygraph.com/books/50f62c56-6b64-4308-8c4c-86a3b1f988a2'
       }
+    ]
+  },
+  {
+    label: 'My Space',
+    divider: true,
+    items: [
+      { title: 'Books I\'ve Read', url: 'https://app.thestorygraph.com/profile/satyvm' },
+      { title: 'Music I Listen To', url: 'https://music.youtube.com/@satyam3406' },
+      { title: 'Movies I\'ve Watched', url: 'https://letterboxd.com/satyvm/films/' }
     ]
   }
 ]

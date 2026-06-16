@@ -13,22 +13,25 @@ import { categories } from '@/data/library'
 
     {
       categories.map((category) => (
-        <section class="section">
-          <h2 class="section-label">{category.label}</h2>
-          <ul>
-            {category.items.map((item) => (
-              <li>
-                <a href={item.url} target="_blank" rel="noopener noreferrer" class="hover-item">
-                  <div class="list-item">
-                    <p class="title">{item.title}</p>
-                    <div class="divider" />
-                    <span class="arrow">↗</span>
-                  </div>
-                </a>
-              </li>
-            ))}
-          </ul>
-        </section>
+        <>
+          {category.divider && <hr class="section-divider" />}
+          <section class="section">
+            <h2 class="section-label">{category.label}</h2>
+            <ul>
+              {category.items.map((item) => (
+                <li>
+                  <a href={item.url} target="_blank" rel="noopener noreferrer" class="hover-item">
+                    <div class="list-item">
+                      <p class="title">{item.title}</p>
+                      <div class="divider" />
+                      <span class="arrow">↗</span>
+                    </div>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </section>
+        </>
       ))
     }
 
@@ -44,6 +47,12 @@ import { categories } from '@/data/library'
 
   .section {
     margin-bottom: 2.5rem;
+  }
+
+  .section-divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 0 0 2.5rem 0;
   }
 
   .section-label {
