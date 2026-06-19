@@ -1,13 +1,4 @@
-export interface LibraryItem {
-  title: string
-  url: string
-}
-
-export interface LibraryCategory {
-  label: string
-  items: LibraryItem[]
-  divider?: boolean
-}
+import type { LibraryCategory } from '@/types'
 
 export const categories: LibraryCategory[] = [
   {
@@ -35,9 +26,9 @@ export const categories: LibraryCategory[] = [
     label: 'My Space',
     divider: true,
     items: [
-      { title: 'Books I\'ve Read', url: 'https://app.thestorygraph.com/profile/satyvm' },
+      { title: "Books I've Read", url: 'https://app.thestorygraph.com/profile/satyvm' },
       { title: 'Music I Listen To', url: 'https://music.youtube.com/@satyam3406' },
-      { title: 'Movies I\'ve Watched', url: 'https://letterboxd.com/satyvm/films/' }
+      { title: "Movies I've Watched", url: 'https://letterboxd.com/satyvm/films/' }
     ]
   }
 ]

@@ -1,24 +1,9 @@
 ---
 import IndexLayout from '@/layouts/IndexLayout.astro'
 import { themeConfig } from '@/config'
-import { workExperience } from '@/data/about'
+import WorkWidget from '@/components/widgets/Work.astro'
 ---
 
 <IndexLayout title={themeConfig.site.title} description={themeConfig.site.description}>
-  <style></style>
-  <section>
-    <h2>Work Experience</h2>
-    {
-      workExperience.map((entry) => (
-        <div class="timeline-entry">
-          <span class="period">{entry.period}</span>
-          <div class="details">
-            <strong>{entry.title}</strong>
-            <span class="org">{entry.organization}</span>
-            <p>{entry.description}</p>
-          </div>
-        </div>
-      ))
-    }
-  </section>
+  <WorkWidget />
 </IndexLayout>

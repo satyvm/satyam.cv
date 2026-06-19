@@ -1,11 +1,4 @@
-export interface ExperienceEntry {
-  period: string
-  title: string
-  organization?: string
-  description?: string
-  url?: string
-  meta?: string
-}
+import type { ExperienceEntry } from '@/types'
 
 export const workExperience: ExperienceEntry[] = [
   {
@@ -13,14 +6,14 @@ export const workExperience: ExperienceEntry[] = [
     title: 'Infrastructure Lead',
     organization: '2Cents Group · Valura.AI & 2Cents Capital',
     description:
-      'Architecting and maintaining cloud infrastructure, deployments, and internal tooling for various web and blockchain projects.',
+      'Architected and maintained cloud infrastructure, deployments, and internal tooling for a SCA-regulated fintech startup.',
     url: 'https://valura.ai'
   },
   {
     period: 'Aug 2024 - May 2025',
     title: 'Crypto Analyst',
     organization: '2Cents Capital, Bengaluru',
-    description: 'Bridging crypto fund to India.',
+    description: 'Bridged crypto fund to India.',
     url: 'https://2centscapital.com'
   },
   {

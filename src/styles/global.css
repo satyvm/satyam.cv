@@ -184,6 +184,7 @@ main {
   color: var(--text-secondary);
   opacity: 0.75;
   flex-shrink: 0;
+  white-space: nowrap;
   letter-spacing: var(--spacing-s);
   font-variant-numeric: tabular-nums;
   font-feature-settings:
@@ -221,5 +222,106 @@ main {
 @media (hover: hover) and (pointer: fine) {
   body:has(.hover-item:hover) .hover-item:not(:hover) {
     opacity: 0.4;
+  }
+}
+
+/* --- Common List & Section Styles --- */
+.section {
+  margin-bottom: 2.5rem;
+}
+
+.section-label {
+  font-size: var(--font-size-s);
+  font-weight: var(--font-weight-bold);
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0 0 0.5rem 0;
+}
+
+.item-list {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.item-list > li > a {
+  color: var(--text-primary);
+  display: block;
+  text-decoration: none;
+  transition: opacity 0.15s ease-out;
+}
+
+.item-row {
+  height: 2.75rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.item-title {
+  margin: 0;
+  flex-shrink: 1;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.item-divider {
+  flex: 1 1 auto;
+  min-width: 3rem;
+  margin: 0 0.25rem;
+  height: 0.5px;
+  background-color: var(--border);
+}
+
+.item-dotted-divider {
+  flex: 1 1 3rem;
+  min-width: 3rem;
+  max-width: 100%;
+  text-align: end;
+  letter-spacing: 5px;
+  height: 1.675rem;
+  overflow: hidden;
+  color: var(--text-tertiary);
+  opacity: 0.75;
+}
+
+.item-dotted-divider::after {
+  content: '·····························································································································································';
+  pointer-events: none;
+}
+
+.item-arrow {
+  color: var(--text-secondary);
+  opacity: 0.75;
+  flex-shrink: 0;
+  font-size: var(--font-size-s);
+  transition: color 0.15s ease-out;
+}
+
+.placeholder {
+  height: 3rem;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .item-list:hover > li > a:hover .item-divider {
+    background-color: var(--text-tertiary);
+    opacity: 0.75;
+  }
+  .item-list:hover > li > a:hover .item-dotted-divider {
+    color: var(--text-secondary);
+  }
+  .item-list:hover > li > a:hover .date {
+    color: var(--text-secondary);
+    opacity: 1;
+  }
+  .item-list:hover > li > a:hover .item-arrow {
+    color: var(--text-primary);
   }
 }

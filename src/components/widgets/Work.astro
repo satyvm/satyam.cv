@@ -1,0 +1,19 @@
+---
+import { workExperience } from '@/data/about'
+---
+
+<section>
+  <h2>Work Experience</h2>
+  {
+    workExperience.map((entry) => (
+      <div class="timeline-entry">
+        <span class="period">{entry.period}</span>
+        <div class="details">
+          <strong>{entry.title}</strong>
+          <span class="org">{entry.organization}</span>
+          <p>{entry.description}</p>
+        </div>
+      </div>
+    ))
+  }
+</section>

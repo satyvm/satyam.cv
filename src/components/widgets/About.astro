@@ -1,0 +1,259 @@
+---
+import { getEntry, render } from 'astro:content'
+import { workExperience, education, projects } from '@/data/about'
+
+const aboutEntry = await getEntry('about', 'about')
+const { Content } = aboutEntry ? await render(aboutEntry) : { Content: null }
+---
+
+<main>
+  <!-- What I Believe -->
+  <section class="section">
+    <h2 class="section-label">What I Believe</h2>
+    {
+      Content && (
+        <div class="prose">
+          <Content />
+        </div>
+      )
+    }
+  </section>
+
+  <!-- Work Experience -->
+  <section class="section">
+    <h2 class="section-label">Work</h2>
+    {
+      workExperience.map((entry) => (
+        <div class="entry">
+          {entry.url ? (
+            <a href={entry.url} target="_blank" rel="noopener noreferrer" class="entry-link hover-item">
+              <div class="entry-row">
+                <span class="entry-title">{entry.title}</span>
+                <div class="item-divider" />
+                <span class="entry-meta">{entry.period}</span>
+              </div>
+              <span class="entry-org">{entry.organization}</span>
+              {entry.description && <p class="entry-summary">{entry.description}</p>}
+            </a>
+          ) : (
+            <div class="entry-link group hover-item">
+              <div class="entry-row">
+                <span class="entry-title">{entry.title}</span>
+                <div class="item-divider" />
+                <span class="entry-meta">{entry.period}</span>
+              </div>
+              <span class="entry-org">{entry.organization}</span>
+              {entry.description && <p class="entry-summary">{entry.description}</p>}
+            </div>
+          )}
+        </div>
+      ))
+    }
+  </section>
+
+  <!-- Education -->
+  <section class="section">
+    <h2 class="section-label">Education</h2>
+    {
+      education.map((entry) => (
+        <div class="entry">
+          {entry.url ? (
+            <a href={entry.url} target="_blank" rel="noopener noreferrer" class="entry-link hover-item">
+              <div class="entry-row">
+                <span class="entry-title">{entry.title}</span>
+                <div class="item-divider" />
+                <span class="entry-meta">{entry.period}</span>
+              </div>
+              <span class="entry-org">{entry.organization}</span>
+              {entry.description && <p class="entry-summary">{entry.description}</p>}
+            </a>
+          ) : (
+            <div class="entry-link group hover-item">
+              <div class="entry-row">
+                <span class="entry-title">{entry.title}</span>
+                <div class="item-divider" />
+                <span class="entry-meta">{entry.period}</span>
+              </div>
+              <span class="entry-org">{entry.organization}</span>
+              {entry.description && <p class="entry-summary">{entry.description}</p>}
+            </div>
+          )}
+        </div>
+      ))
+    }
+  </section>
+
+  <!-- Projects -->
+  <section class="section">
+    <h2 class="section-label">Projects</h2>
+    {
+      projects.map((entry) => (
+        <div class="entry">
+          {entry.url ? (
+            <a href={entry.url} target="_blank" rel="noopener noreferrer" class="entry-link hover-item">
+              <div class="entry-row">
+                <span class="entry-title">{entry.title}</span>
+                <div class="item-divider" />
+                <span class="entry-meta">{entry.meta}</span>
+              </div>
+              {entry.organization && <span class="entry-org">{entry.organization}</span>}
+              {entry.description && <p class="entry-summary">{entry.description}</p>}
+            </a>
+          ) : (
+            <div class="entry-link group hover-item">
+              <div class="entry-row">
+                <span class="entry-title">{entry.title}</span>
+                <div class="item-divider" />
+                <span class="entry-meta">{entry.meta}</span>
+              </div>
+              {entry.organization && <span class="entry-org">{entry.organization}</span>}
+              {entry.description && <p class="entry-summary">{entry.description}</p>}
+            </div>
+          )}
+        </div>
+      ))
+    }
+  </section>
+
+  <div class="placeholder"></div>
+</main>
+
+<style>
+  .entry {
+    margin-bottom: 0.25rem;
+  }
+
+  .entry-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+
+  .entry-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    min-height: 2.75rem;
+  }
+
+  .entry-title {
+    color: var(--text-primary);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .entry-meta {
+    color: var(--text-primary);
+    opacity: 0.5;
+    letter-spacing: var(--spacing-s);
+    flex-shrink: 0;
+    white-space: nowrap;
+    font-size: var(--font-size-s);
+    font-variant-numeric: tabular-nums;
+    font-feature-settings:
+      'tnum' 1,
+      'zero' 0,
+      'cv01' 1,
+      'cv02' 1,
+      'calt' 1,
+      'ss03' 1,
+      'ordn' 1;
+  }
+
+  .entry-org {
+    display: block;
+    color: var(--text-primary);
+    opacity: 0.5;
+    font-size: var(--font-size-s);
+    margin-top: -0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .entry-summary {
+    font-size: var(--font-size-s);
+    color: var(--text-primary);
+    margin: 0;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .entry-link:hover .item-divider {
+      background-color: var(--text-tertiary);
+      opacity: 0.75;
+    }
+
+    .entry-link:hover .entry-summary {
+      max-height: 100px;
+      opacity: 0.6;
+      margin-top: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .entry-link:hover .entry-row + .entry-summary {
+      margin-top: -0.5rem;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .entry-row {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.25rem;
+      padding-top: 0.5rem;
+      padding-bottom: 0.25rem;
+    }
+
+    .item-divider {
+      display: none;
+    }
+
+    .entry-title {
+      white-space: normal;
+    }
+
+    .entry-meta {
+      white-space: normal;
+    }
+
+    .entry-org {
+      margin-top: 0;
+      margin-bottom: 0.5rem;
+    }
+  }
+
+  :global(.prose) {
+    margin-bottom: 0;
+  }
+
+  :global(.prose p) {
+    margin: 0 0 1.25rem 0;
+    line-height: 1.75;
+    color: var(--text-primary);
+  }
+
+  :global(.prose > *:last-child) {
+    margin-bottom: 0;
+  }
+
+  :global(.prose ul) {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  :global(.prose li) {
+    line-height: 1.65;
+    color: var(--text-secondary);
+  }
+
+  :global(.prose strong) {
+    color: var(--text-primary);
+    font-weight: var(--font-weight-bold);
+  }
+</style>

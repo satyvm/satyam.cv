@@ -1,6 +1,6 @@
 import { getCollection, type CollectionEntry } from 'astro:content'
 import { OGImageRoute } from 'astro-og-canvas'
-import { themeConfig } from '../../config'
+import { themeConfig } from '@/config'
 
 export const prerender = true
 

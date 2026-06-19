@@ -1,0 +1,46 @@
+---
+import { categories } from '@/data/library'
+---
+
+<main>
+  <p class="library-description">Things I go back to regularly.</p>
+
+  {
+    categories.map((category) => (
+      <>
+        {category.divider && <hr class="section-divider" />}
+        <section class="section">
+          <h2 class="section-label">{category.label}</h2>
+          <ul class="item-list">
+            {category.items.map((item) => (
+              <li>
+                <a href={item.url} target="_blank" rel="noopener noreferrer" class="hover-item">
+                  <div class="item-row">
+                    <p class="item-title">{item.title}</p>
+                    <div class="item-divider" />
+                    <span class="item-arrow">↗</span>
+                  </div>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      </>
+    ))
+  }
+
+  <div class="placeholder"></div>
+</main>
+
+<style>
+  .library-description {
+    color: var(--text-secondary);
+    margin: 0 0 2rem 0;
+  }
+
+  .section-divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 0 0 2.5rem 0;
+  }
+</style>
