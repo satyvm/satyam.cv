@@ -25,5 +25,3 @@ export interface VideoEntry {
   url: string
   date: Date
 }
-
-

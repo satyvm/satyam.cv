@@ -6,13 +6,13 @@ export const themeConfig: ThemeConfig = {
     website: 'https://satyam.cv/', // Site domain
     title: 'Satyam', // Site title
     author: 'satyam', // Author name
-    description: 'satyam\'s course of life', // Site description
+    description: "satyam's course of life", // Site description
     language: 'en-US' // Default language
   },
 
   // GENERAL SETTINGS ////////////////////////////////////////////////////////////////////////////////////
   general: {
-    contentWidth: '40rem', // Content area width
+    contentWidth: '36rem', // Content area width
     centeredLayout: true, // Use centered layout (false for left-aligned)
     themeToggle: true, // Show theme toggle button (uses system theme by default)
     postListDottedDivider: false, // Show dotted divider in post list

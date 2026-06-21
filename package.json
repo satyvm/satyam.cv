@@ -20,7 +20,8 @@
     "format:check": "prettier --check .",
     "new": "tsx scripts/new-post.ts",
     "update-link-metadata": "tsx scripts/update-link-metadata.ts",
-    "update-theme": "tsx scripts/update-theme.ts"
+    "update-theme": "tsx scripts/update-theme.ts",
+    "compile-resume": "tsx scripts/compile-resume.ts"
   },
   "dependencies": {
     "@astrojs/mdx": "^6.0.3",
