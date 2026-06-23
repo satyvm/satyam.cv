@@ -2,9 +2,9 @@
 title: 'Home'
 ---
 
-_Open to work_. Contributing to open source and learning for CKA.
+_Open to work_. Contributing to open source.
 
-I have spent my college days at IITM, participating in hackathons. After graduating in 2024, I worked for a year at a hedge fund and a fintech startup. Explored areas of crypto, finance, and programming. Now, I enjoy my time learning and building tech.
+I spent my college days at IITM, participating in hackathons. After graduating in 2024, I worked for a year at a hedge fund and a fintech startup. Explored areas of crypto, finance, and programming. Now, I enjoy my time learning and building tech.
 
 All I want to do is build infra where users, devs, and AI rely on and be part of something meaningful.
 

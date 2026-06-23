@@ -4,15 +4,14 @@ export const workExperience: ExperienceEntry[] = [
   {
     period: 'Aug 2024 – Dec 2025',
     title: 'Infrastructure Lead',
-    organization: '2Cents Group · Valura.AI & 2Cents Capital',
-    description:
-      'Architected and maintained cloud infrastructure, deployments, and internal tooling for a SCA-regulated fintech startup.',
+    organization: '2Cents Group · Valura.AI',
+    description: 'Architected and deployed infrastructure, for a SCA-regulated fintech startup.',
     url: 'https://valura.ai'
   },
   {
     period: 'Aug 2024 - May 2025',
     title: 'Crypto Analyst',
-    organization: '2Cents Capital, Bengaluru',
+    organization: '2Cents Group · 2Cents Capital, Bengaluru',
     description: 'Bridged crypto fund to India.',
     url: 'https://2centscapital.com'
   },
@@ -20,7 +19,7 @@ export const workExperience: ExperienceEntry[] = [
     period: '2021 – 2023',
     title: 'DevOps Coordinator',
     organization: 'Saarang, IIT Madras',
-    description: "Managed infrastructure and CI/CD pipelines for one of India's largest student-run cultural festivals."
+    description: "Managed infrastructure for one of India's largest student-run cultural festivals."
   }
 ]
 
@@ -43,40 +42,38 @@ export const projects: ExperienceEntry[] = [
   {
     period: '',
     title: 'Blockchain SRE & Infrastructure Lab',
-    description: 'One-click ethereum nodes deployment on AWS with an observability stack (Prometheus, Grafana).',
-    meta: 'Docker · Terraform · AWS',
+    description: 'One-click Ethereum nodes deployment on AWS with an observability stack (Prometheus, Grafana).',
+    meta: 'AWS · Docker · Terraform',
     url: 'https://github.com/satyvm/node'
-  },
-  {
-    period: '',
-    title: 'Home Network Infrastructure',
-    description: 'A robust local network setup focusing on privacy and uptime monitoring with VPN.',
-    meta: 'Pi-hole · Unbound · Uptime Kuma'
   },
   {
     period: '',
     title: 'FluXtream',
     organization: 'Aptos Winter School 2023, IIT Bombay',
-    description:
-      'Architected a crypto streaming platform on the Aptos blockchain, enabling users to stream tokens over time through programmable payment flows.',
-    meta: 'Crypto Streaming · Aptos',
+    description: 'A crypto streaming platform on the Aptos blockchain, enabling users to stream tokens over time.',
+    meta: 'Aptos · Move · Next.js',
     url: 'https://github.com/orgs/FluXtream-Move/repositories'
   },
   {
     period: '',
     title: 'NFTRokz',
     organization: 'Starknet Hackathon 2022, Bengaluru',
-    description: 'Built an NFT-collateralized lending and borrowing platform on Starknet.',
-    meta: 'Lending & Borrowing · Starknet',
+    description: 'A NFT-collateralized lending and borrowing platform on Starknet.',
+    meta: 'Starknet · Cairo · Next.js',
     url: 'https://nftrokz.vercel.app'
   },
   {
     period: '',
     title: 'Optimaz.me',
     organization: 'Finalist, Metaverse Hackathon by Encode, Online',
-    description:
-      'Developed a token-gated 3D metaverse game with Vue.js, integrating blockchain-based access control for in-game assets and dynamic UI interactions.',
-    meta: 'Metaverse · Vue.js · Optimism',
+    description: 'A token-gated 3D metaverse game with randomized blockchain-based assets.',
+    meta: 'Optimism · Vue.js · Solidity',
     url: 'https://www.optimaz.me/'
+  },
+  {
+    period: '',
+    title: 'Personal Infrastructure',
+    description: 'A robust local + VPS infra setup.',
+    meta: 'Coolify · Caddy · Pi-hole · Unbound'
   }
 ]
