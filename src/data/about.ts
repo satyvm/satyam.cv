@@ -2,9 +2,9 @@ import type { ExperienceEntry } from '@/types'
 
 export const workExperience: ExperienceEntry[] = [
   {
-    period: 'Aug 2024 – Dec 2025',
+    period: 'May 2025 – Dec 2025',
     title: 'Infrastructure Lead',
-    organization: '2Cents Group · Valura.AI',
+    organization: '2Cents Group · Valura.AI, Bengaluru',
     description: 'Architected and deployed infrastructure, for a SCA-regulated fintech startup.',
     url: 'https://valura.ai'
   },
