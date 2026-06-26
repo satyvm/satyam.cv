@@ -3,7 +3,7 @@ title: 'What is RIP-7212?'
 pubDate: '2024-05-30'
 ---
 
-![Note: you can’t obtain a private key from the public key because of the nature of the cryptographic method used, for example, the elliptic curve method.](./_assets/what_is_rip_7212__0.png)
+![Note: you can’t obtain a private key from the public key because of the nature of the cryptographic method used, for example, the elliptic curve method.](./_assets/what_is_rip_7212_/01_note-you-cant-obtain-a-private-key-from-the-public-key.png)
 
 ## A Precompile for secp256r1 Curve Support
 
@@ -27,11 +27,11 @@ This might look very complex on the surface level, but mathematically, it’s ea
 
 In simple terms, the curve below is used to get random points on the curve by creating and reflecting lines. Those points can be used to develop keypairs.
 
-![A graph of the secp256k1’s elliptic curve over real numbers (https://www.flavius.io/media/a-word-on-secp256k1-and-ecdsa)](./_assets/what_is_rip_7212__1.png)
+![A graph of the secp256k1’s elliptic curve over real numbers (https://www.flavius.io/media/a-word-on-secp256k1-and-ecdsa)](./_assets/what_is_rip_7212_/02_a-graph-of-the-secp256k1s-elliptic-curve-over-real-numbers.png)
 
 The elliptic curve is defined by following mathematical equation,
 
-![The mathematical equation for an elliptic curve: y squared equals x cubed plus ax plus b](./_assets/what_is_rip_7212__2.png)
+![The mathematical equation for an elliptic curve: y squared equals x cubed plus ax plus b](./_assets/what_is_rip_7212_/03_the-mathematical-equation-for-an-elliptic-curve-y-squared.png)
 
 by varying a and b, we can have multiple equations and their pair curves.
 
@@ -55,7 +55,7 @@ b = 5AC635D8 AA3A93E7 B3EBBD55 769886BC 651D06B0 CC53B0F6 3BCE3C3E 27D2604B
 
 Random seems more secure, but the fun fact is that Bitcoin started with secp256k1, aka the Koblitz curve. The reason comes from the conspiracy of the NSA controlling NIST, who might have created a backdoor using the random number generator in secp256r1 for a & b. Given the fact that the curve r1 is pseudo-randomized, thus such weak curves could be used under the attack. As a result, Satoshi decided to use a pre-defined pure Koblitz curve for Bitcoin. Not to mention, the Koblitz curve is more efficient, comparatively.
 
-![Flowchart showing the creation and verification of a digital signature using an elliptic curve, private key, message, and public key](./_assets/what_is_rip_7212__3.png)
+![Flowchart showing the creation and verification of a digital signature using an elliptic curve, private key, message, and public key](./_assets/what_is_rip_7212_/04_flowchart-showing-the-creation-and-verification-of-a-digital.png)
 
 Now, using the secp256k1 elliptic curve, a user can create a signature for a transaction using a private key, which anyone can use to verify if a particular transaction was signed by a public address or not. To understand this practically, there is this fantastic website that you can use: [https://andersbrownworth.com/blockchain/public-privatfantasticys/signatures.](https://andersbrownworth.com/blockchain/public-private-keys/signatures.)
 
@@ -63,7 +63,7 @@ Now, using the secp256k1 elliptic curve, a user can create a signature for a tra
 
 Curious? Why is there so much effort in using secp256r1? Even when both curves have almost the exact cost of combined attacks and security conditions. One of the most essential functions is that this curve is widely used and supported in many modern devices, such as Apple’s Secure Enclave, Webauthn, and Android Keychain, which improves user adoption. It solves the challenge web3 currently faces, “cumbersome user experience (UX).”
 
-![FaceID is one of the pioneering UX in the Apple ecosystem.](./_assets/what_is_rip_7212__4.gif)
+![FaceID is one of the pioneering UX in the Apple ecosystem.](./_assets/what_is_rip_7212_/05_faceid-is-one-of-the-pioneering-ux-in-the-apple-ecosystem.gif)
 
 For example, the [Apple secure enclave](https://developer.apple.com/documentation/security/certificate_key_and_trust_services/keys/protecting_keys_with_the_secure_enclave) only works with secp256r1 as it is a hardware-based key manager isolated from the main processor, meaning you can’t change how the signature is produced but can verify it. And if the protocol is just using secp256k1, we can’t have FaceID-integrated web3 mobile applications.
 
@@ -77,7 +77,7 @@ Instead of changing the bottom-layer transaction type and adding new protocol fe
 
 The key goal achieved was to allow users to use smart contract wallets containing arbitrary verification logic instead of EOAs as their primary account.
 
-![How account abstraction works (https://www.alchemy.com/learn/account-abstraction)](./_assets/what_is_rip_7212__5.png)
+![How account abstraction works (https://www.alchemy.com/learn/account-abstraction)](./_assets/what_is_rip_7212_/06_how-account-abstraction-works.png)
 
 Users can now send `UserOperation`, which contains all the same parameters as the transaction, like “sender,” “to,” “calldata,” “maxFeePerGas,” “nonce,” “maxPriorityFee,” and “signature.” Apart from this, it also has the `Signatature` field is not defined by the protocol but by each account implementation.
 

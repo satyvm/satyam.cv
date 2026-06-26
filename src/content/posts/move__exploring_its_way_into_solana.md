@@ -3,7 +3,7 @@ title: 'Move, exploring its way into Solana'
 pubDate: '2024-02-29'
 ---
 
-![Abstract logo of two intersecting blue and cyan rounded rectangles on a gradient background](./_assets/move__exploring_its_way_into_solana_0.png)
+![Abstract logo of two intersecting blue and cyan rounded rectangles on a gradient background](./_assets/move__exploring_its_way_into_solana/01_abstract-logo-of-two-intersecting-blue-and-cyan-rounded.png)
 
 ## A Smart Contract Language on the rise
 
@@ -19,7 +19,7 @@ It was originally built by Facebook’s Libra/Diem Blockchain — a payment netw
 
 In layman's terms, Move is statically typed and designed around modules giving it a fundamental advantage compared to other languages.
 
-![An illustration of human evolution depicting the progression from apes to modern man, with labels Solidity, Rust, Anchor, and Move](./_assets/move__exploring_its_way_into_solana_1.png)
+![An illustration of human evolution depicting the progression from apes to modern man, with labels Solidity, Rust, Anchor, and Move](./_assets/move__exploring_its_way_into_solana/02_an-illustration-of-human-evolution-depicting-the-progression.png)
 
 Move was designed while keeping four key goals in mind: first-class resources(assets), flexibility, safety, and verifiability.
 
@@ -31,7 +31,7 @@ Move was designed while keeping four key goals in mind: first-class resources(as
 
 **Verifiability:** Security and computational cost go hand in hand, we have to carefully weigh both. Move balances the two by using lightweight on-chain verification and advanced off-chain static verification tools.
 
-![Diagram showing Move Blockchain State with global storage branching into Addresses, Resources, and Modules](./_assets/move__exploring_its_way_into_solana_2.png)![Move and Solidity Blockchain State](./_assets/move__exploring_its_way_into_solana_3.png)
+![Diagram showing Move Blockchain State with global storage branching into Addresses, Resources, and Modules](./_assets/move__exploring_its_way_into_solana/03_diagram-showing-move-blockchain-state-with-global-storage.png)![Move and Solidity Blockchain State](./_assets/move__exploring_its_way_into_solana/04_move-and-solidity-blockchain-state.png)
 
 _The key difference is Solidity’s storage is address-based whereas Move’s storage is object-based._
 
@@ -45,7 +45,7 @@ So how Move is handling this? In the Move runtime, some of the checks are transp
 
 For example, due to checks and other declarations, the “Mint Authority” code in Solana and Move (Sui) has a distinct gap in size.
 
-![Code snippet comparison between Solana and Sui showing the difference in account checks](./_assets/move__exploring_its_way_into_solana_4.png)
+![Code snippet comparison between Solana and Sui showing the difference in account checks](./_assets/move__exploring_its_way_into_solana/05_code-snippet-comparison-between-solana-and-sui-showing-the.png)
 
 Apart from the checks, Solana stores the addresses of other accounts in the form of pointers and doesn’t store the actual data. To access the accounts, they need to be passed every time and manually checked. On the other hand, in Move, we can directly access them using structs indefinitely without running any checks.
 
@@ -79,11 +79,11 @@ All this was a technical overview of the “Why Move?”. But do we have a commu
 
 ### Move community
 
-![Developer Report by Electric Capital](./_assets/move__exploring_its_way_into_solana_5.png)
+![Developer Report by Electric Capital](./_assets/move__exploring_its_way_into_solana/06_developer-report-by-electric-capital.png)
 
 Even Aptos and Sui (Move-based blockchains) are fairly new blockchains, they have a much greater number of developers compared to blockchains Algorand and Stacks who use their programming languages.
 
-![Developer Report by Electric Capital](./_assets/move__exploring_its_way_into_solana_6.png)
+![Developer Report by Electric Capital](./_assets/move__exploring_its_way_into_solana/07_developer-report-by-electric-capital.png)
 
 To make this read more interesting I figured why not get to know the behind-the-scenes of the project Move on Solana. It’s a good way to give your brain a headache, at least to mine, lol.
 
@@ -97,7 +97,7 @@ Move is built on Rust with ownership in mind and is strongly focused on simplici
 
 First, the Move code is compiled into Move bytecode, which runs in the Move VM for the Bytecode validation. The traditional architecture of the Move virtual machine:
 
-![Diagram showing Move Bytecode flowing into a Deserializer, then Verifier, Code Cache, and finally Executor](./_assets/move__exploring_its_way_into_solana_7.png)
+![Diagram showing Move Bytecode flowing into a Deserializer, then Verifier, Code Cache, and finally Executor](./_assets/move__exploring_its_way_into_solana/08_diagram-showing-move-bytecode-flowing-into-a-deserializer.png)
 
 **There are three ways we can get Move on Solana:**
 
@@ -111,17 +111,17 @@ To approach the implementation of running the Move VM as a program, we would nee
 
 So, LLVM? LLVM (Low-Level Virtual Machine) is a set of compilers and toolchains, used to create the front end of any programming language or backed for any instruction set architecture.
 
-![LLVM’s Implementation of the Three-Phase Design](./_assets/move__exploring_its_way_into_solana_8.png)
+![LLVM’s Implementation of the Three-Phase Design](./_assets/move__exploring_its_way_into_solana/09_llvms-implementation-of-the-three-phase-design.png)
 
 I know, LLVM can be intimidating to code. So why even try to do it? Because Solana runtime uses it.
 
 First, The compiler breaks down the rust source code into lexemes, and then it verifies the correctness and validates the logic. In the second stage, the compiler generates the intermediate representation (IR) code. Now, the _LLVM optimizer_ comes into play, which complies IR into optimized IR code (LLVM bytecode). In the end, the optimized IR code is translated into Solana Binary Format (SBF, a Solanaized eBPF).
 
-![Handwritten flow diagram showing Rust compiling to IR, then LLVM Optimizer to Optimized IR, and finally SBF](./_assets/move__exploring_its_way_into_solana_9.png)
+![Handwritten flow diagram showing Rust compiling to IR, then LLVM Optimizer to Optimized IR, and finally SBF](./_assets/move__exploring_its_way_into_solana/10_handwritten-flow-diagram-showing-rust-compiling-to-ir-then.png)
 
 It makes sense to replace the Rust source code with the Move source code and generate IR code.
 
-![Handwritten flow diagram showing Move compiling to IR, then LLVM Optimizer to Optimized IR, and finally SBF](./_assets/move__exploring_its_way_into_solana_10.png)
+![Handwritten flow diagram showing Move compiling to IR, then LLVM Optimizer to Optimized IR, and finally SBF](./_assets/move__exploring_its_way_into_solana/11_handwritten-flow-diagram-showing-move-compiling-to-ir-then.png)
 
 In Rust, we have a few options to interface to LLVM:
 

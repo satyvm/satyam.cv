@@ -3,7 +3,7 @@ title: 'Solana’s Versioned Transaction'
 pubDate: '2023-11-20'
 ---
 
-![Solana logo on a dark, rippling sand-like background](./_assets/solana_s_versioned_transaction_0.png)
+![Solana logo on a dark, rippling sand-like background](./_assets/solana_s_versioned_transaction/01_solana-logo-on-a-dark-rippling-sand-like-background.png)
 
 ## Looking into the new lookup table
 
@@ -17,7 +17,7 @@ This article will explore exactly how everything works under the hood and how yo
 
 ### Legacy Transaction
 
-![Diagram showing a Legacy Transaction splitting into a Compact Array of Signatures and a Message, with the Message further splitting into Header, Account Addresses, Recent Blockhash, and Instructions](./_assets/solana_s_versioned_transaction_1.png)
+![Diagram showing a Legacy Transaction splitting into a Compact Array of Signatures and a Message, with the Message further splitting into Header, Account Addresses, Recent Blockhash, and Instructions](./_assets/solana_s_versioned_transaction/02_diagram-showing-a-legacy-transaction-splitting-into-a.png)
 
 The legacy transaction is comprised of a compact array of signatures (64 bytes for each signature) and a message. The Legacy Message has four elements of data, which are,
 
@@ -32,7 +32,7 @@ The first component is the header, which has the number of required signatures, 
 
 Moving on to the compact array of instructions, each instruction has a program ID index (a byte, u8), a compact array of account address indexes, and opaque 8-bit data.
 
-![Diagram showing a Compact array of Instructions splitting into multiple individual Instructions containing Program ID Index, Account Addresses Indexes, and Opaque 8-bit Data](./_assets/solana_s_versioned_transaction_2.png)
+![Diagram showing a Compact array of Instructions splitting into multiple individual Instructions containing Program ID Index, Account Addresses Indexes, and Opaque 8-bit Data](./_assets/solana_s_versioned_transaction/03_diagram-showing-a-compact-array-of-instructions-splitting.png)
 
 The next one is the compact array of account addresses, and here it contains the account address classified into requiring signature or not and further into read-only or read/write request. This is where the issues arise.
 
@@ -57,7 +57,7 @@ ALTs stores address in an on-chain array(table-like). After addresses are stored
 
 So, if we need to accommodate 5 addresses in a legacy transaction, it takes 160 bytes, as in transaction v0, it will only take 37 bytes (after including the ALT’s address, which takes 32 bytes + 4 bytes for four accounts).
 
-![Comparison for transaction memory for legacy and while using ALTs.](./_assets/solana_s_versioned_transaction_3.png)
+![Comparison for transaction memory for legacy and while using ALTs.](./_assets/solana_s_versioned_transaction/04_comparison-for-transaction-memory-for-legacy-and-while-using.png)
 
 ALTs need to be rent-free when initialized and after new addresses are appended each time. Addresses can added to the table using the on-chain buffer or by directly appending them to the table using the Extension instruction. (ALTs can also store associated metadata followed by the compact array of accounts).
 
@@ -98,7 +98,7 @@ Only the compact array of accounts stored in the message is used in legacy trans
 
 Enough theory behind the versioned transaction. From a developer's point of view, we should look into what changes have been made in RPC and overall coding.
 
-![Meme of a skeleton sitting on a bench with the caption 'ME WAITING FOR SOME CODE'](./_assets/solana_s_versioned_transaction_4.jpeg)
+![Meme of a skeleton sitting on a bench with the caption 'ME WAITING FOR SOME CODE'](./_assets/solana_s_versioned_transaction/05_meme-of-a-skeleton-sitting-on-a-bench-with-the-caption-me.jpeg)
 
 ## RPC Changes
 
@@ -300,7 +300,7 @@ yarn ts-node createTable.ts
 
 Get your Lookup table address from the terminal. It will look something like this ([here](https://explorer.solana.com/tx/2zkdcKQmCWjG21ngta2gyHVixebMBwa4swca8C8mGqjYnGGi8kDKExQcTwn8XF9FWZcSePkxTpJfZtgHA3tgH7Fm?cluster=devnet) the lookup table address is 4iSg5upfgCrLAmcfBRaDxcqwKbvjTZti9bDjyqhmJrq6)
 
-![Screenshot of a terminal showing the successful execution of yarn ts-node createTable.ts](./_assets/solana_s_versioned_transaction_5.png)
+![Screenshot of a terminal showing the successful execution of yarn ts-node createTable.ts](./_assets/solana_s_versioned_transaction/06_screenshot-of-a-terminal-showing-the-successful-execution-of.png)
 
 Open the **app.ts** file and put your private key and lookup table address in their places (lines 9 & 15). Lastly, run the file using,
 
@@ -310,7 +310,7 @@ yarn ts-node app.ts
 
 Your terminal will look something like this,
 
-![Screenshot of a terminal showing the execution of yarn ts-node app.ts, displaying lookup table entries and transaction confirmation details](./_assets/solana_s_versioned_transaction_6.png)
+![Screenshot of a terminal showing the execution of yarn ts-node app.ts, displaying lookup table entries and transaction confirmation details](./_assets/solana_s_versioned_transaction/07_screenshot-of-a-terminal-showing-the-execution-of-yarn-ts.png)
 
 Congratulations! 🎉 You’ve successfully run the code. If you observe, you will see the transaction size is hugely reduced. That’s how much the lookup table is effective.
 
