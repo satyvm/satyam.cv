@@ -1,5 +1,5 @@
 \documentclass[letterpaper,10pt]{article}
-    
+
     \usepackage{latexsym}
     \usepackage[letterpaper, left=0.4in, right=0.4in, top=0.4in, bottom=0.4in]{geometry}
     \usepackage{titlesec}
@@ -13,42 +13,42 @@
     \usepackage{tabularx}
     \usepackage{fontawesome5}
     \usepackage{xcolor}
-    
+
     % Better font encoding for modern systems
     \usepackage[T1]{fontenc}
     \usepackage{lmodern}
-    
+
     %----------FONT OPTIONS----------
     \renewcommand{\familydefault}{\sfdefault}
     \linespread{0.95} % Expanded slightly to fill the page and improve readability
-    
+
     %----------COLORS----------
     \definecolor{accentcolor}{RGB}{25, 25, 112}
-    
+
     %----------PAGE SETUP----------
     \pagestyle{fancy}
-    \fancyhf{} 
+    \fancyhf{}
     \fancyfoot{}
     \renewcommand{\headrulewidth}{0pt}
     \renewcommand{\footrulewidth}{0pt}
     \urlstyle{same}
     \raggedbottom
     \setlength{\tabcolsep}{0in}
-    
+
     %----------SECTION FORMATTING----------
     \titleformat{\section}{
       \raggedright\large\bfseries\color{accentcolor}
-    }{}{0em}{}[\color{accentcolor}\titlerule \vspace{3pt}] 
-    
+    }{}{0em}{}[\color{accentcolor}\titlerule \vspace{3pt}]
+
     \titlespacing*{\section}{0pt}{4pt}{3pt} % Slightly increased spacing around sections
-    
+
     %----------CUSTOM COMMANDS----------
     \newcommand{\resumeItem}[1]{
       \item\small{
         {#1}
       }
     }
-    
+
     \newcommand{\resumeSubheading}[4]{
       \item \vspace{2pt}
         \begin{tabular*}{\linewidth}[t]{l@{\extracolsep{\fill}}r}
@@ -56,52 +56,52 @@
           \textit{\small#3} & \textit{\small #4} \\
         \end{tabular*}\vspace{-2pt}
     }
-    
+
     \newcommand{\resumeProjectHeading}[2]{
         \item \vspace{2pt}
         \begin{tabular*}{\linewidth}{l@{\extracolsep{\fill}}r}
           \small#1 & #2 \\
         \end{tabular*}\vspace{-2pt}
     }
-    
+
     \newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=0in, label={}, itemsep=3pt, parsep=0pt, topsep=0pt]}
     \newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
-    
+
     \newcommand{\resumeItemListStart}{\begin{itemize}[leftmargin=0.15in, itemsep=1pt, parsep=0pt, topsep=3pt]}
     \newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-2pt}}
-    
+
 %-------------------------------------------
 %%%%%%  RESUME STARTS HERE  %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    
+
 \begin{document}
-    
+
 %----------HEADER----------
 \begin{center}
     \textbf{\Huge \color{accentcolor} Satyam} \\ \vspace{5pt}
     \small
-    \faGlobe \hspace{1pt} \href{https://satyam.cv}{satyam.cv} \quad$|$\quad 
-            \faEnvelope \hspace{1pt} \href{mailto:hi@satyvm.com}{hi@satyvm.com} \quad$|$\quad 
+    \faGlobe \hspace{1pt} \href{https://satyam.cv}{satyam.cv} \quad$|$\quad
+            \faEnvelope \hspace{1pt} \href{mailto:hi@satyvm.com}{hi@satyvm.com} \quad$|$\quad
     \faLinkedin \hspace{1pt} \href{https://linkedin.com/in/satyvm}{linkedin.com/in/satyvm} \quad$|$\quad
     \faGithub \hspace{1pt} \href{https://github.com/satyvm}{github.com/satyvm} \quad$|$\quad
     \faPhone \hspace{1pt} \href{tel:+919555275348}{+91 9555275348} \quad$|$\quad
     \faMapMarker \hspace{1pt} Delhi
 \end{center}
-    
+
 %----------SUMMARY----------
 \vspace{-2pt}
 \small Infrastructure Developer and Crypto Analyst, IIT Madras Alumnus with experience in cloud computing, bare-metal servers, AI automation, smart contract development, and quantitative finance.
-    
+
 %----------EXPERIENCE----------
 \section{Experience}
 \resumeSubHeadingListStart
-    
+
     \resumeSubheading
       {Infrastructure Lead}{May 2025 -- December 2025}
       {2Cents Group -- Valura.AI - Fintech(SCA) Startup}{Remote / Bangalore, India}
       \resumeItemListStart
-        \resumeItem{Engineered production-grade \textbf{AWS infrastructure (ECS, EC2, ALB,  S3, RDS, Cognito)} with completely isolated environments from the ground up, successfully scaling to support web and mobile applications for over \textbf{10000+ users (MAU)}.}
+        \resumeItem{Engineered production-grade \textbf{AWS infrastructure (ECS, EC2, ALB,  S3, RDS, Cognito)} with completely isolated environments from the ground up, successfully scaling to support web and mobile applications for over \textbf{5000+ users (MAU)}.}
         \resumeItem{Achieved a \textbf{99.6\% service availability (SLI)} with Multi-AZ deployment, targeted auto-scaling policies, and zero-downtime rolling updates.}
-        \resumeItem{Designed \textbf{end-to-end CI/CD pipelines} using \textbf{GitHub Actions} with self-hosted runners, incorporating automated checks, security checks, and vulnerability scanning, which successfully \textbf{reduced deployment time by 90\%} for faster production releases.}
+        \resumeItem{Designed \textbf{end-to-end CI/CD pipelines} using \textbf{GitHub Actions} with self-hosted runners, incorporating automated code checks, security checks (SAST \& DAST), and vulnerability scanning (SCA), which successfully \textbf{reduced deployment time by 90\%} for faster production releases.}
         \resumeItem{Provisioned and deployed an enterprise-grade \textbf{HPE bare-metal server}, directly coordinating with a co-location provider for secure hosting.}
         \resumeItem{Architected and deployed an internal private infrastructure using \textbf{Proxmox}, provisioning a \textbf{high-availability cluster} of Linux and Windows VMs with automated resources, dedicated to Synapse (an internal tool for trading) and various trading strategies.}
         \resumeItem{Implemented a firewall and networking having different zones on Proxmox with \textbf{OPNsense} and access through \textbf{Wireguard VPN}. Utilized LXCs / VMs with strict resource controls for testing and production with GitHub and \textbf{Portainer} for CI/CD deployment.}
@@ -121,9 +121,9 @@
         \resumeItem{Represented the fund internationally in Dubai, UAE, \textbf{pitching crypto investment strategies} to over 50 high-net-worth investors.}
         \resumeItem{\textbf{Directed a 4-member crypto analytics team}, managing tasks, and ensuring timely execution aligned to our goals.}
       \resumeItemListEnd
-    
+
 \resumeSubHeadingListEnd
-    
+
 %----------PROJECTS----------
 \section{Projects}
 \resumeSubHeadingListStart
@@ -133,14 +133,14 @@
         \resumeItem{Developed an one-click \textbf{production Blockchain Node setup using Terraform} for Ethereum on \textbf{AWS}, with automated provisioning.}
         \resumeItem{Ready-to-use RPC and health monitoring, observability stack (Prometheus, Grafana), and automated alerting workflows with Alertmanager.}
       \resumeItemListEnd
-    
+
     \resumeProjectHeading
       {\textbf{\href{https://nftrokz.vercel.app}{NFTRokz}} $|$ \emph{Lending and Borrowing platform, Starknet blockchain}}{Starknet Hackathon 2022, Bengaluru}
       \resumeItemListStart
         \resumeItem{Built a \textbf{NFT-collateralized lending and borrowing platform on Starknet}, allowing users to unlock liquidity from their NFT holdings through smart contract-based lending mechanisms, even from other NFTs on other blockchains.}
         \resumeItem{Engineered the frontend with secure interaction between user wallets and developed the Starknet smart contracts in Cairo language.}
       \resumeItemListEnd
-      
+
     \resumeProjectHeading
       {\textbf{\href{https://github.com/orgs/FluXtream-Move/repositories}{FluXtream.co}} $|$ \emph{Full-Stack, Smart Contracts, Aptos Blockchain}}{Aptos Winter School 2023, IIT Bombay}
       \resumeItemListStart
@@ -148,16 +148,16 @@
         \resumeItem{Developed full-stack app and deployed it for beta for the \textbf{initial 50+ users}. Made it in a team of three people.}
       \resumeItemListEnd
 \resumeSubHeadingListEnd
-    
+
 %----------SKILLS----------
 \section{Technical Skills}
 \begin{itemize}[leftmargin=0in, label={}, itemsep=3pt, parsep=0pt, topsep=2pt]
     \small
     \item \textbf{Infrastructure}: AWS, GCP, Docker, Kubernetes, Terraform, Proxmox, Bare-Metal, Linux, GitOps, Jenkins, OPNsense, VPN
-    \item \textbf{Crypto}: Ethereum/EVM, Solana, Aptos, Smart Contracts (Solidity, Rust), Node Services, Arweave
+    \item \textbf{Crypto}: Ethereum/EVM, Solana, Aptos, Smart Contracts (Solidity, Rust, Cairo), Node Services, Arweave
     \item \textbf{Programming}: Python, Bash, TypeScript/JavaScript, Rust, Solidity, Next.js, React.js, Tailwind CSS, SQL
 \end{itemize}
-    
+
 %----------CERTIFICATIONS----------
 \section{Certifications}
 \begin{itemize}[leftmargin=0in, label={}, itemsep=3pt, parsep=0pt, topsep=2pt]
@@ -166,17 +166,17 @@
     \item \textbf{Certified Kubernetes Administrator (CKA)} -- Expected July 2026
     \item \textbf{AWS Certified Devops Engineer -- Professional} -- Expected August 2026
 \end{itemize}
-    
+
 %----------EDUCATION----------
 \section{Education}
 \resumeSubHeadingListStart
     \resumeSubheading
       {Indian Institute of Technology, Madras}{Chennai, India}
       {B.Tech in Naval Architecture and Ocean Engineering (CGPA: 7.86)}{May 2020 -- June 2024}
-      
+
     \resumeSubheading
       {Seoul National University}{Seoul, South Korea}
       {Semester Exchange (Computer Science, Credits: 64)}{Feb 2023 -- June 2023}
 \resumeSubHeadingListEnd
-    
+
 \end{document}
