@@ -1,5 +1,5 @@
 import type { APIContext } from 'astro'
-import { getCollection } from 'astro:content'
+import { getCollection, type CollectionEntry } from 'astro:content'
 import { themeConfig } from '@/config'
 import { workExperience, education, projects } from '@/data/about'
 import { videos } from '@/data/videos'
@@ -14,8 +14,10 @@ export async function GET(context: APIContext) {
   const posts = await getSortedPublicPosts()
 
   const notesCollection = await getCollection('notes')
-  const sortedNotes = notesCollection.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
-  const renderedNotes = sortedNotes.map((note) => ({
+  const sortedNotes = notesCollection.sort(
+    (a: CollectionEntry<'notes'>, b: CollectionEntry<'notes'>) => b.data.date.valueOf() - a.data.date.valueOf()
+  )
+  const renderedNotes = sortedNotes.map((note: CollectionEntry<'notes'>) => ({
     date: note.data.date.toISOString(),
     body: note.body
   }))

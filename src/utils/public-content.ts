@@ -22,7 +22,7 @@ export function isFuturePost(post: CollectionEntry<'posts'>): boolean {
  */
 export async function getPublicPosts(): Promise<CollectionEntry<'posts'>[]> {
   const posts = await getCollection('posts')
-  return posts.filter((post) => !isDraftPost(post) && !isFuturePost(post))
+  return posts.filter((post: CollectionEntry<'posts'>) => !isDraftPost(post) && !isFuturePost(post))
 }
 
 /**
@@ -30,7 +30,9 @@ export async function getPublicPosts(): Promise<CollectionEntry<'posts'>[]> {
  */
 export async function getSortedPublicPosts(): Promise<CollectionEntry<'posts'>[]> {
   const posts = await getPublicPosts()
-  return posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  return posts.sort(
+    (a: CollectionEntry<'posts'>, b: CollectionEntry<'posts'>) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+  )
 }
 
 /**
