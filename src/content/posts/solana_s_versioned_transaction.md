@@ -1,6 +1,8 @@
 ---
 title: 'Solana’s Versioned Transaction'
+description: 'Understanding Solana v0 versioned transactions, address lookup tables, and how they overcome transaction size constraints for high-throughput composition.'
 pubDate: '2023-11-20'
+tags: ['solana', 'architecture', 'blockchain', 'performance']
 ---
 
 ![Solana logo on a dark, rippling sand-like background](./_assets/solana_s_versioned_transaction/01_solana-logo-on-a-dark-rippling-sand-like-background.png)

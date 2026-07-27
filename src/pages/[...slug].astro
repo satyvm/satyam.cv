@@ -1,16 +1,15 @@
 ---
-import { type CollectionEntry, getCollection } from 'astro:content'
+import { type CollectionEntry } from 'astro:content'
 import PostLayout from '@/layouts/PostLayout.astro'
 import { render } from 'astro:content'
+import { getPublicPosts } from '@/utils/public-content'
 
 export async function getStaticPaths() {
-  const posts = await getCollection('posts')
-  return posts
-    .filter((post) => !post.id.startsWith('_'))
-    .map((post) => ({
-      params: { slug: post.id },
-      props: post
-    }))
+  const posts = await getPublicPosts()
+  return posts.map((post) => ({
+    params: { slug: post.id.replace(/\.(md|mdx)$/, '') },
+    props: post
+  }))
 }
 
 type Props = CollectionEntry<'posts'>

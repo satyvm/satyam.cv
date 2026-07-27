@@ -7,6 +7,8 @@ export interface ExperienceEntry {
   description?: string
   url?: string
   meta?: string
+  startDate?: string
+  endDate?: string
 }
 
 export interface LibraryItem {

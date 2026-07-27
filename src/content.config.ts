@@ -7,12 +7,28 @@ const posts = defineCollection({
   loader: glob({ base: './src/content/posts', pattern: '**/*.{md,mdx}' }),
   // Type-check frontmatter using a schema
   schema: () =>
-    z.object({
-      title: z.string(),
-      // Transform string to Date object
-      pubDate: z.coerce.date(),
-      image: z.string().optional()
-    })
+    z
+      .object({
+        title: z.string(),
+        description: z.string().min(20).max(300),
+        pubDate: z.coerce.date(),
+        updatedDate: z.coerce.date().optional(),
+        tags: z.array(z.string()).default([]),
+        image: z.string().optional(),
+        imageAlt: z.string().optional()
+      })
+      .refine(
+        (data) => {
+          if (data.image && !data.imageAlt) {
+            return false
+          }
+          return true
+        },
+        {
+          message: 'imageAlt is required when image is provided',
+          path: ['imageAlt']
+        }
+      )
 })
 
 const home = defineCollection({

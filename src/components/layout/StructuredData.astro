@@ -1,0 +1,16 @@
+---
+import { generateStructuredData, safeJsonLdReplacer, type StructuredDataProps } from '@/utils/structured-data'
+
+const props = Astro.props as StructuredDataProps
+const schemas = generateStructuredData(props)
+---
+
+{
+  schemas.map((schema) => (
+    <script
+      is:inline
+      type="application/ld+json"
+      set:html={JSON.stringify(schema, safeJsonLdReplacer)}
+    />
+  ))
+}

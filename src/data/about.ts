@@ -6,20 +6,26 @@ export const workExperience: ExperienceEntry[] = [
     title: 'Infrastructure Lead',
     organization: '2Cents Group · Valura.AI, Bengaluru',
     description: 'Architected and deployed infrastructure, for a SCA-regulated fintech startup.',
-    url: 'https://valura.ai'
+    url: 'https://valura.ai',
+    startDate: '2025-05',
+    endDate: '2025-12'
   },
   {
     period: 'Aug 2024 - May 2025',
     title: 'Crypto Analyst',
     organization: '2Cents Group · 2Cents Capital, Bengaluru',
     description: 'Bridged crypto fund to India.',
-    url: 'https://2centscapital.com'
+    url: 'https://2centscapital.com',
+    startDate: '2024-08',
+    endDate: '2025-05'
   },
   {
     period: '2021 – 2023',
     title: 'DevOps Coordinator',
     organization: 'Saarang, IIT Madras',
-    description: "Managed infrastructure for one of India's largest student-run cultural festivals."
+    description: "Managed infrastructure for one of India's largest student-run cultural festivals.",
+    startDate: '2021',
+    endDate: '2023'
   }
 ]
 
@@ -28,13 +34,17 @@ export const education: ExperienceEntry[] = [
     period: '2020 – 2024',
     title: 'B.Tech, Naval Architecture',
     organization: 'Indian Institute of Technology, Madras',
-    description: 'Specialized in building ships, while spending a lot of time studying CS and building on crypto.'
+    description: 'Specialized in building ships, while spending a lot of time studying CS and building on crypto.',
+    startDate: '2020',
+    endDate: '2024'
   },
   {
     period: '2023 Summer',
     title: 'Semester Exchange',
     organization: 'Seoul National University',
-    description: 'AI Hardware Design, UI Design, Algorithms, History & Korean Language.'
+    description: 'AI Hardware Design, UI Design, Algorithms, History & Korean Language.',
+    startDate: '2023-05',
+    endDate: '2023-08'
   }
 ]
 

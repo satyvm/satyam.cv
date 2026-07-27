@@ -1,6 +1,8 @@
 ---
 title: 'Move, exploring its way into Solana'
+description: 'Exploring the Move smart contract language, its origin in Diem, resource-oriented type safety, and its integration into Solana ecosystem.'
 pubDate: '2024-02-29'
+tags: ['solana', 'move', 'blockchain', 'smart-contracts']
 ---
 
 ![Abstract logo of two intersecting blue and cyan rounded rectangles on a gradient background](./_assets/move__exploring_its_way_into_solana/01_abstract-logo-of-two-intersecting-blue-and-cyan-rounded.png)

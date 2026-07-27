@@ -33,10 +33,12 @@ if (existsSync(fullPath)) {
 // Ensure the directory structure exists
 mkdirSync(dirname(fullPath), { recursive: true })
 
-// Generate frontmatter with current date
+// Generate frontmatter with current date and required description
 const content: string = `---
 title: ${displayTitle}
+description: 'TODO: Add a concise post description here.'
 pubDate: '${new Date().toISOString().split('T')[0]}'
+tags: []
 ---
 
 `

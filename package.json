@@ -9,9 +9,10 @@
   },
   "scripts": {
     "dev": "tsx scripts/update-link-metadata.ts && astro dev",
-    "build": "pnpm run typecheck && tsx scripts/update-link-metadata.ts && astro build",
+    "build": "pnpm run typecheck && tsx scripts/update-link-metadata.ts && astro build && pnpm run audit",
     "typecheck": "pnpm run typecheck:ts && astro check",
     "typecheck:ts": "tsc --noEmit",
+    "audit": "tsx scripts/audit-generated-site.ts",
     "preview": "astro preview",
     "astro": "astro",
     "lint": "eslint .",

@@ -1,6 +1,8 @@
 ---
 title: 'What is RIP-7212?'
+description: 'A comprehensive technical overview of RIP-7212 precompile for secp256r1 elliptic curve signature verification on EVM rollups.'
 pubDate: '2024-05-30'
+tags: ['ethereum', 'cryptography', 'evm', 'precompile', 'rollups']
 ---
 
 ![Note: you can’t obtain a private key from the public key because of the nature of the cryptographic method used, for example, the elliptic curve method.](./_assets/what_is_rip_7212_/01_note-you-cant-obtain-a-private-key-from-the-public-key.png)

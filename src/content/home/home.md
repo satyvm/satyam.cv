@@ -10,5 +10,5 @@ All I want to do is build infra where users, devs, and AI rely on and be part of
 
 In my free time, I like to _hoop_, sketch, play _valorant_, and listen to _music_.
 
-Connect me at [x](https://x.com/satyvm), [linkedin](https://linkedin.com/in/satyvm), and [mail](mailto:hi@satyvm.com). <br />
+Connect me at [x](https://x.com/satyvm), [linkedin](https://linkedin.com/in/satyvm), and [mail](mailto:hi@satyvm.com?subject=saying%20hi%2C%20and%20a%20quick%20question%21&body=hi%20satyam%2C%0A%20%20wanted%20to%20ask%20a%20quick%20question%20...). <br />
 I reply to every message.

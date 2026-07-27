@@ -5,9 +5,33 @@ export const themeConfig: ThemeConfig = {
   site: {
     website: 'https://satyam.cv/', // Site domain
     title: 'Satyam', // Site title
-    author: 'satyam', // Author name
-    description: "satyam's course of life", // Site description
-    language: 'en-US' // Default language
+    author: 'Satyam', // Author name
+    description: 'Infrastructure Lead, SRE & Blockchain Engineer. Thoughts on cloud infra, Web3, Solana, EVM, and system reliability.', // Site description
+    language: 'en-US', // Default language
+    defaultOgImage: '/og/default.png'
+  },
+
+  // PROFILE INFO FOR APIS / JSON-LD ///////////////////////////////////////////////////////////////////
+  profile: {
+    preferredName: 'Satyam',
+    headline: 'Infrastructure Lead & Blockchain SRE',
+    shortBio: 'B.Tech graduate from IIT Madras specializing in cloud infrastructure, Web3 systems, SRE, and smart contract security.',
+    defaultOgImage: '/og/default.png',
+    sameAs: {
+      github: 'https://github.com/satyvm',
+      linkedin: 'https://www.linkedin.com/in/satyvm/',
+      x: 'https://x.com/satyvm'
+    },
+    knowsAbout: [
+      'Cloud Infrastructure',
+      'Site Reliability Engineering (SRE)',
+      'Blockchain Infrastructure',
+      'Solana Architecture',
+      'Ethereum & EVM',
+      'Smart Contract Security',
+      'Terraform & Docker',
+      'Move & Cairo'
+    ]
   },
 
   // GENERAL SETTINGS ////////////////////////////////////////////////////////////////////////////////////
