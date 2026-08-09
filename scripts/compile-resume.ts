@@ -8,29 +8,31 @@
  *    sudo tlmgr update --self
  *    sudo tlmgr install titlesec marvosym enumitem fancyhdr fontawesome5 xcolor lm babel-english
  */
-import { exec } from 'child_process'
+import { execFile } from 'child_process'
 import { promisify } from 'util'
 import path from 'path'
 import fs from 'fs/promises'
+import { fileURLToPath } from 'url'
 
-const execAsync = promisify(exec)
+const execFileAsync = promisify(execFile)
 
-const SRC_TEX = 'src/data/resume.tex'
-const TARGET_PDF = 'public/satyam_resume.pdf'
+const projectRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
+const srcTex = path.join(projectRoot, 'src/data/resume.tex')
+const targetPdf = path.join(projectRoot, 'public/satyam_resume.pdf')
 
 async function compileResume() {
   try {
     console.log('Compiling resume...')
 
-    const srcDir = path.dirname(SRC_TEX)
-    const texFile = path.basename(SRC_TEX)
+    const srcDir = path.dirname(srcTex)
+    const texFile = path.basename(srcTex)
 
     // Run pdflatex in the directory of the .tex file
-    await execAsync(`pdflatex -interaction=nonstopmode -halt-on-error ${texFile}`, { cwd: srcDir })
+    await execFileAsync('pdflatex', ['-interaction=nonstopmode', '-halt-on-error', texFile], { cwd: srcDir })
 
     // Move the generated PDF to public directory
-    await fs.rename(path.join(srcDir, 'resume.pdf'), TARGET_PDF)
-    console.log(`Successfully compiled and moved PDF to ${TARGET_PDF}`)
+    await fs.rename(path.join(srcDir, 'resume.pdf'), targetPdf)
+    console.log(`Successfully compiled and moved PDF to ${path.relative(projectRoot, targetPdf)}`)
 
     // Clean up auxiliary files silently
     const exts = ['.aux', '.log', '.out', '.toc', '.fls', '.fdb_latexmk', '.synctex.gz']

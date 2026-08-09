@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "skills": {
+    "latex-formatting": {
+      "source": "lingzhi227/agent-research-skills",
+      "sourceType": "github",
+      "skillPath": "skills/latex-formatting/SKILL.md",
+      "computedHash": "c54413ee387288bc8231462bee02e7e128a966c1ff1f2422f720c1a822ed8a66"
+    }
+  }
+}

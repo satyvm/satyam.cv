@@ -6,7 +6,8 @@ export const themeConfig: ThemeConfig = {
     website: 'https://satyam.cv/', // Site domain
     title: 'Satyam', // Site title
     author: 'Satyam', // Author name
-    description: 'Infrastructure Lead, SRE & Blockchain Engineer. Thoughts on cloud infra, Web3, Solana, EVM, and system reliability.', // Site description
+    description:
+      'Backend & Infrastructure Engineer. Thoughts on fintech systems, cloud infrastructure, blockchain, and reliability.', // Site description
     language: 'en-US', // Default language
     defaultOgImage: '/og/default.png'
   },
@@ -14,8 +15,8 @@ export const themeConfig: ThemeConfig = {
   // PROFILE INFO FOR APIS / JSON-LD ///////////////////////////////////////////////////////////////////
   profile: {
     preferredName: 'Satyam',
-    headline: 'Infrastructure Lead & Blockchain SRE',
-    shortBio: 'B.Tech graduate from IIT Madras specializing in cloud infrastructure, Web3 systems, SRE, and smart contract security.',
+    headline: 'Backend & Infrastructure Engineer',
+    shortBio: 'Backend and infrastructure engineer with experience building fintech, cloud, and blockchain systems.',
     defaultOgImage: '/og/default.png',
     sameAs: {
       github: 'https://github.com/satyvm',
@@ -25,12 +26,13 @@ export const themeConfig: ThemeConfig = {
     knowsAbout: [
       'Cloud Infrastructure',
       'Site Reliability Engineering (SRE)',
+      'Backend Engineering',
+      'Fintech Systems',
       'Blockchain Infrastructure',
-      'Solana Architecture',
+      'Solana',
       'Ethereum & EVM',
-      'Smart Contract Security',
       'Terraform & Docker',
-      'Move & Cairo'
+      'Observability & Networking'
     ]
   },
 

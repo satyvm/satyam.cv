@@ -4,9 +4,9 @@ title: 'Home'
 
 _Open to work_. Contributing to open source.
 
-I spent my college days at IITM, participating in hackathons. After graduating in 2024, I worked for a year at a hedge fund and a fintech startup. Explored areas of crypto, finance, and programming. Now, I enjoy my time learning and building tech.
+I spent my college days at IIT Madras, participating in hackathons. After graduating in 2024, I worked at an early-stage hedge fund and as a founding engineer for a fintech startup. I have explored crypto, finance, backend systems, cloud infrastructure, and programming. Now, I enjoy learning and building technology.
 
-All I want to do is build infra where users, devs, and AI rely on and be part of something meaningful.
+All I want to do is build infrastructure that users, developers, and AI can rely on, and be part of something meaningful.
 
 In my free time, I like to _hoop_, sketch, play _valorant_, and listen to _music_.
 
