@@ -2,11 +2,17 @@ import type { ExperienceEntry } from '@/types'
 
 export const workExperience: ExperienceEntry[] = [
   {
+    period: 'Aug 2026 – Present',
+    title: 'Software Engineer',
+    organization: 'Golden Hills Capital India Pvt Ltd, Hyderabad',
+    description: 'Full-time, on-site role in Hyderabad, Telangana, India.',
+    startDate: '2026-08'
+  },
+  {
     period: 'May 2025 – Dec 2025',
     title: 'Founding Engineer — Backend & Infrastructure',
     organization: '2Cents Group · Valura.AI, Remote / Bengaluru',
-    description:
-      'Built production backend systems, AWS infrastructure, and CI/CD for an AI-finance platform.',
+    description: 'Built production backend systems, AWS infrastructure, and CI/CD for an AI-finance platform.',
     url: 'https://valura.ai',
     startDate: '2025-05',
     endDate: '2025-12'
@@ -15,8 +21,7 @@ export const workExperience: ExperienceEntry[] = [
     period: 'Aug 2024 – May 2025',
     title: 'Quant Developer — Crypto',
     organization: '2Cents Group · 2Cents Capital, Remote / Bengaluru',
-    description:
-      'Built crypto fund for an early-stage hedge fund.',
+    description: 'Built crypto fund for an early-stage hedge fund.',
     url: 'https://2centscapital.com',
     startDate: '2024-08',
     endDate: '2025-05'
@@ -54,31 +59,37 @@ export const projects: ExperienceEntry[] = [
   {
     period: '',
     title: 'Blockchain SRE & Infrastructure Lab',
-    description: 'One-command Ethereum node deployment on AWS with health monitoring, metrics, dashboards, and alerting.',
+    description:
+      'One-command Ethereum node deployment on AWS with health monitoring, metrics, dashboards, and alerting.',
     meta: 'AWS · Terraform · Docker · Prometheus · Grafana',
     url: 'https://github.com/satyvm/node'
   },
   {
-    period: '',
-    title: 'FluXtream',
+    period: 'Dec 2023 – Jan 2024',
+    title: 'FluXtream.co',
     organization: 'Aptos Winter School 2023, IIT Bombay',
-    description: 'A token-streaming platform on Aptos for continuous token transfers over configurable periods.',
-    meta: 'Aptos · Move · Smart Contracts',
-    url: 'https://github.com/orgs/FluXtream-Move/repositories'
+    description:
+      'Developed a decentralized crypto-streaming platform on Aptos during the IIT Bombay Aptos Winter School.',
+    meta: 'Next.js · Tailwind CSS · Aptos · Move',
+    url: 'https://github.com/orgs/FluXtream-Move/repositories',
+    startDate: '2023-12',
+    endDate: '2024-01'
   },
   {
     period: '',
     title: 'NFTRokz',
     organization: 'Starknet Hackathon 2022, Bengaluru',
-    description: 'A NFT-collateralized lending and borrowing platform on Starknet.',
-    meta: 'Starknet · Cairo · Next.js',
-    url: 'https://nftrokz.vercel.app'
+    description:
+      'Designed the frontend and user experience for a dApp that bridges L2 NFTs to Starknet as collateral for instant loans.',
+    meta: 'React.js · JavaScript · Starknet',
+    url: 'https://devfolio.co/projects/nftrokz-347c'
   },
   {
     period: '',
     title: 'Optimaz.me',
     organization: 'Finalist, Metaverse Hackathon by Encode, Online',
-    description: 'A token-gated 3D metaverse game with randomized blockchain-based assets.',
+    description:
+      'Built the Vue.js frontend and designed the user experience for a token-gated metaverse maze scavenger hunt supporting charities and AI image generation.',
     meta: 'Optimism · Vue.js · Solidity',
     url: 'https://www.optimaz.me/'
   },
@@ -87,5 +98,14 @@ export const projects: ExperienceEntry[] = [
     title: 'Personal Infrastructure',
     description: 'A robust local + VPS infra setup.',
     meta: 'Coolify · Caddy · Pi-hole · Unbound'
+  }
+]
+
+export const certifications: ExperienceEntry[] = [
+  {
+    period: 'Issued May 2026',
+    title: 'FinTech Industry Professional (FTIP®)',
+    organization: 'Corporate Finance Institute® (CFI)',
+    startDate: '2026-05'
   }
 ]

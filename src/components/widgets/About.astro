@@ -1,6 +1,6 @@
 ---
 import { getEntry, render } from 'astro:content'
-import { workExperience, education, projects } from '@/data/about'
+import { workExperience, education, projects, certifications } from '@/data/about'
 
 const aboutEntry = await getEntry('about', 'about')
 const { Content } = aboutEntry ? await render(aboutEntry) : { Content: null }
@@ -110,6 +110,24 @@ const { Content } = aboutEntry ? await render(aboutEntry) : { Content: null }
               {entry.description && <p class="entry-summary">{entry.description}</p>}
             </div>
           )}
+        </div>
+      ))
+    }
+  </section>
+
+  <section class="section">
+    <h2 class="section-label">Certifications</h2>
+    {
+      certifications.map((entry) => (
+        <div class="entry">
+          <div class="entry-link hover-item">
+            <div class="entry-row">
+              <span class="entry-title">{entry.title}</span>
+              <div class="item-divider" />
+              <span class="entry-meta">{entry.period}</span>
+            </div>
+            <span class="entry-org">{entry.organization}</span>
+          </div>
         </div>
       ))
     }
