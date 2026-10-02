@@ -2,9 +2,9 @@
 title: 'Home'
 ---
 
-_Open to work_. Contributing to open source.
+Software Engineer at Golden Hills Capital India Pvt Ltd, Hyderabad. Contributing to open source.
 
-I spent my college days at IIT Madras, participating in hackathons. After graduating in 2024, I worked at an early-stage hedge fund and as a founding engineer for a fintech startup. I have explored crypto, finance, backend systems, cloud infrastructure, and programming. Now, I enjoy learning and building technology.
+I spent my college days at IIT Madras, participating in hackathons. After graduating in 2024, I worked at an early-stage hedge fund and as a founding engineer for a fintech startup. In August 2026, I joined Golden Hills Capital as a software engineer. I have explored crypto, finance, backend systems, cloud infrastructure, and programming, and I enjoy learning and building technology.
 
 All I want to do is build infrastructure that users, developers, and AI can rely on, and be part of something meaningful.
 

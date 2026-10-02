@@ -13,10 +13,12 @@
 
     %----------FONT OPTIONS----------
 \renewcommand{\familydefault}{\sfdefault}
-\linespread{1.01}
+\linespread{1}
 \setlength{\parindent}{0pt}
 \setlength{\emergencystretch}{1.5em}
-\pdfgentounicode=1
+\ifdefined\pdfgentounicode
+  \pdfgentounicode=1
+\fi
 
     %----------COLORS----------
 \definecolor{accentcolor}{HTML}{1F3A5F}
@@ -35,7 +37,7 @@
   {\raggedright\normalsize\bfseries\color{accentcolor}}
   {}{0em}{}[\color{accentcolor}\titlerule]
 
-\titlespacing*{\section}{0pt}{8pt}{4pt}
+\titlespacing*{\section}{0pt}{6pt}{4pt}
 
     %----------CUSTOM COMMANDS----------
 \newcommand{\resumeItem}[1]{\item\small #1}
@@ -55,10 +57,10 @@
   \end{tabular*}\vspace{-3pt}
 }
 
-\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=0pt, label={}, itemsep=4pt, parsep=0pt, topsep=0pt, partopsep=0pt]}
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=0pt, label={}, itemsep=3pt, parsep=0pt, topsep=0pt, partopsep=0pt]}
 \newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
 
-\newcommand{\resumeItemListStart}{\begin{itemize}[leftmargin=0.18in, label=\textbullet, itemsep=1.5pt, parsep=0pt, topsep=3pt, partopsep=0pt]}
+\newcommand{\resumeItemListStart}{\begin{itemize}[leftmargin=0.18in, label=\textbullet, itemsep=1pt, parsep=0pt, topsep=3pt, partopsep=0pt]}
 \newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-2pt}}
 
 %-------------------------------------------
@@ -69,7 +71,7 @@
 %----------HEADER----------
 \begin{center}
   {\fontsize{21}{24}\selectfont\bfseries\color{accentcolor} Satyam} \\[2pt]
-  \small Backend \& Infrastructure Engineer \\[3pt]
+  \small Software Engineer \\[3pt]
   \href{mailto:hi@satyvm.com}{hi@satyvm.com} \enspace\textbar\enspace +91 9555275348 \enspace\textbar\enspace Delhi, India \\
   \href{https://satyam.cv}{satyam.cv} \enspace\textbar\enspace
   \href{https://linkedin.com/in/satyvm}{linkedin.com/in/satyvm} \enspace\textbar\enspace
@@ -78,11 +80,15 @@
 
 %----------SUMMARY----------
 \vspace{-1pt}
-\small Fintech Engineer specializing in Python/TypeScript services, AWS, CI/CD, private cloud, observability, networking, and blockchain infrastructure.
+\small Fintech engineer specializing in Python/TypeScript, AWS, CI/CD, private cloud, observability, networking, and blockchain.
 
 %----------EXPERIENCE----------
 \section{Experience}
 \resumeSubHeadingListStart
+
+    \resumeSubheading
+      {Software Engineer}{August 2026 -- Present}
+      {Golden Hills Capital India Pvt Ltd -- Full-time}{Hyderabad, India -- On-site}
 
     \resumeSubheading
       {Founding Engineer -- Backend \& Infrastructure}{May 2025 -- December 2025}
@@ -91,7 +97,7 @@
         \resumeItem{Engineered production backend systems for an AI financial advisor, and portfolio-monitoring platform using \textbf{TypeScript, Python, FastAPI, PostgreSQL, MongoDB, TimescaleDB, and Prisma}.}
         \resumeItem{Built an \textbf{LLM-powered financial advisor} using \textbf{Agno Framework} and Gemini APIs, integrating Exa and Yahoo Finance for real-time market context, Server-Sent Events (SSE) for streaming responses, and \textbf{Microsoft Presidio} for PII redaction.}
         \resumeItem{Developed portfolio analytics and monitoring workflows using \textbf{TimescaleDB and SnapTrade}, for investment-risk analysis.}
-        \resumeItem{Architected production \textbf{AWS infrastructure from scratch} using \textbf{ECS, EC2, ALB, S3, RDS, and Cognito}, with isolated environments supporting web/mobile apps for \textbf{5,000+ MAU}; maintained \textbf{99.6\% availability} with Multi-AZ, auto-scaling, health checks, and rolling deploy.}
+        \resumeItem{Built production \textbf{AWS infrastructure} with \textbf{ECS, EC2, ALB, S3, RDS, and Cognito}, isolating environments for web/mobile apps serving \textbf{5,000+ MAU}; maintained \textbf{99.6\% availability} using Multi-AZ, auto-scaling, health checks, and rolling deploys.}
         \resumeItem{Built end-to-end \textbf{GitHub Actions CI/CD} with self-hosted runners, automated code-quality checks, SAST, DAST, and software-composition analysis integrated into deployment workflow.}
         \resumeItem{Deployed enterprise \textbf{HPE bare metal} and built a Proxmox private-cloud environment for Linux/Windows VMs and containers supporting trading, testing, and production workloads with segmented networking with \textbf{OPNsense}.}
         \resumeItem{Led infrastructure/security readiness for \textbf{SCA Category 5 licensing and ISO 27001} audit preparation.}
@@ -118,14 +124,14 @@
     \resumeProjectHeading
       {\textbf{\href{https://github.com/satyvm/node}{Blockchain SRE \& Infrastructure Lab}} $|$ \emph{AWS, Terraform, Docker, Prometheus, Grafana, Linux}}{Personal Project}
       \resumeItemListStart
-        \resumeItem{Built a \textbf{one-command Ethereum node deployment workflow using Terraform on AWS}, automating infrastructure provisioning and node configuration.}
+        \resumeItem{Automated \textbf{one-command Ethereum node deployment on AWS using Terraform}, including provisioning and node configuration.}
         \resumeItem{Implemented RPC health monitoring, metrics collection, dashboards, and alerting using \textbf{Prometheus, Grafana, and Alertmanager} to simulate production blockchain-node operations.}
       \resumeItemListEnd
 
     \resumeProjectHeading
-      {\textbf{\href{https://github.com/orgs/FluXtream-Move/repositories}{FluXtream.co}} $|$ \emph{Aptos, Move, Full-Stack Development, Smart Contracts}}{Aptos Winter School 2023, IIT Bombay}
+      {\textbf{\href{https://github.com/orgs/FluXtream-Move/repositories}{FluXtream.co}} $|$ \emph{Next.js, Tailwind CSS, Aptos, Move}}{December 2023 -- January 2024}
       \resumeItemListStart
-        \resumeItem{Built a token-streaming platform on \textbf{Aptos}, enabling continuous token transfers over configurable periods through smart contracts; developed it in a \textbf{three-person team} and deployed a beta used by \textbf{50+ users}.}
+        \resumeItem{Built a decentralized crypto-streaming platform on \textbf{Aptos} during the \textbf{IIT Bombay Aptos Winter School}, enabling continuous token transfers through smart contracts; developed it in a \textbf{three-person team} and deployed a beta used by \textbf{50+ users}.}
       \resumeItemListEnd
 \resumeSubHeadingListEnd
 
@@ -150,6 +156,12 @@
     \resumeSubheading
       {Seoul National University}{Seoul, South Korea}
       {Semester Exchange -- Computer Science}{February 2023 -- June 2023}
+\resumeSubHeadingListEnd
+
+\section{Certifications}
+\resumeSubHeadingListStart
+    \resumeProjectHeading
+      {\textbf{FinTech Industry Professional (FTIP\textregistered)} $|$ \emph{Corporate Finance Institute (CFI)}}{Issued May 2026}
 \resumeSubHeadingListEnd
 
 \end{document}
