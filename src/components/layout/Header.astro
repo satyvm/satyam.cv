@@ -3,86 +3,399 @@ import { themeConfig } from '@/config'
 import ThemeToggle from '@/components/ui/ThemeToggle.astro'
 
 const navLinks = [
-  { href: '/about', label: 'about' },
-  { href: '/content', label: 'content' },
-  { href: '/library', label: 'library' },
-  { href: '/satyam_resume.pdf', label: 'resume', external: true }
+  { href: '/', label: 'Home' },
+  { href: '/about', label: 'About' },
+  { href: '/content', label: 'Writing' },
+  { href: '/library', label: 'Library' },
+  { href: '/resume', label: 'Resume' }
 ]
-const currentPath = Astro.url.pathname
+const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/'
 ---
 
-<header>
-  <nav>
-    <div class="nav-left">
-      <a href="/" class="site-title">{themeConfig.site.title}</a>
-      <div class="nav-links">
+<header class="site-header" transition:persist="site-header" transition:name="site-header" transition:animate="none">
+  <a href="/" class="site-title" aria-label="Satyam home">{themeConfig.site.title}<span>.</span></a>
+  <ruler-navigation>
+    <div class="ruler" aria-hidden="true"></div>
+    <div class="nav-scroller">
+      <nav aria-label="Primary navigation">
         {
           navLinks.map((link) => (
-            <a
-              href={link.href}
-              class:list={[
-                { active: currentPath === link.href || (link.href !== '/' && currentPath.startsWith(link.href)) }
-              ]}
-              target={link.external ? '_blank' : undefined}
-              rel={link.external ? 'noopener noreferrer' : undefined}
-            >
+            <a href={link.href} aria-current={currentPath === link.href ? 'page' : undefined}>
               {link.label}
             </a>
           ))
         }
-      </div>
+      </nav>
     </div>
-    {themeConfig.general.themeToggle && <ThemeToggle />}
-  </nav>
+    <span class="nav-hint" aria-hidden="true">Drag to explore</span>
+  </ruler-navigation>
+  {themeConfig.general.themeToggle && <ThemeToggle />}
 </header>
 
+<script>
+  import { navigate } from 'astro:transitions/client'
+
+  class RulerNavigation extends HTMLElement {
+    private cleanup?: () => void
+
+    connectedCallback() {
+      if (this.cleanup) return
+      const scroller = this.querySelector<HTMLElement>('.nav-scroller')!
+      const nav = this.querySelector<HTMLElement>('nav')!
+      const links = Array.from(nav.querySelectorAll<HTMLAnchorElement>('a'))
+      const controller = new AbortController()
+      const { signal } = controller
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
+      let startX = 0
+      let startScroll = 0
+      let dragging = false
+      let moved = false
+      let frame = 0
+      let viewportWidth = 0
+      let transitionScroll: number | undefined
+      let centerFrame = 0
+      let pointerId: number | undefined
+
+      const cancelCenter = () => {
+        cancelAnimationFrame(centerFrame)
+        centerFrame = 0
+        scroller.style.scrollSnapType = ''
+      }
+
+      const centerLink = (link: HTMLAnchorElement, animate: boolean) => {
+        cancelCenter()
+        const target = link.offsetLeft - (scroller.clientWidth - link.offsetWidth) / 2
+        if (!animate || reducedMotion.matches) {
+          scroller.scrollTo({ left: target, behavior: 'instant' })
+          return
+        }
+        const start = scroller.scrollLeft
+        const startedAt = performance.now()
+        scroller.style.scrollSnapType = 'none'
+        const move = (time: number) => {
+          const progress = Math.min((time - startedAt) / 360, 1)
+          scroller.scrollLeft = start + (target - start) * (1 - (1 - progress) ** 3)
+          if (progress < 1) centerFrame = requestAnimationFrame(move)
+          else cancelCenter()
+        }
+        centerFrame = requestAnimationFrame(move)
+      }
+
+      const syncPage = () => {
+        if (transitionScroll !== undefined) {
+          scroller.scrollTo({ left: transitionScroll, behavior: 'instant' })
+          transitionScroll = undefined
+        }
+        const path = window.location.pathname.replace(/\/$/, '') || '/'
+        links.forEach((link) => {
+          if (link.getAttribute('href') === path) link.setAttribute('aria-current', 'page')
+          else link.removeAttribute('aria-current')
+        })
+        const active = nav.querySelector<HTMLAnchorElement>('[aria-current="page"]')
+        if (active) centerLink(active, true)
+      }
+
+      const align = () => {
+        nav.style.paddingLeft = `${Math.max(0, (scroller.clientWidth - links[0].offsetWidth) / 2)}px`
+        nav.style.paddingRight = `${Math.max(0, (scroller.clientWidth - links[links.length - 1].offsetWidth) / 2)}px`
+        const active = nav.querySelector<HTMLAnchorElement>('[aria-current="page"]') || links[0]
+        centerLink(active, false)
+        this.dataset.ready = 'true'
+      }
+      const update = () => {
+        this.style.setProperty('--ruler-offset', `${-scroller.scrollLeft}px`)
+        const center = scroller.scrollLeft + scroller.clientWidth / 2
+        const nearest = links.reduce((best, link) =>
+          Math.abs(link.offsetLeft + link.offsetWidth / 2 - center) <
+          Math.abs(best.offsetLeft + best.offsetWidth / 2 - center)
+            ? link
+            : best
+        )
+        links.forEach((link) => link.toggleAttribute('data-centered', link === nearest))
+      }
+      const snap = (selectPage: boolean) => {
+        update()
+        const nearest = nav.querySelector<HTMLAnchorElement>('[data-centered]')
+        if (nearest) {
+          centerLink(nearest, true)
+          const href = nearest.getAttribute('href')!
+          const path = window.location.pathname.replace(/\/$/, '') || '/'
+          if (selectPage && href !== path) void navigate(href)
+        }
+      }
+
+      scroller.addEventListener(
+        'scroll',
+        () => {
+          cancelAnimationFrame(frame)
+          frame = requestAnimationFrame(update)
+        },
+        { passive: true, signal }
+      )
+      scroller.addEventListener(
+        'wheel',
+        (event) => {
+          if (event.ctrlKey || Math.abs(event.deltaX) >= Math.abs(event.deltaY)) return
+          event.preventDefault()
+          cancelCenter()
+          scroller.scrollLeft += event.deltaY
+        },
+        { passive: false, signal }
+      )
+      this.addEventListener(
+        'pointerdown',
+        (event) => {
+          if (event.button !== 0) return
+          cancelCenter()
+          scroller.style.scrollSnapType = 'none'
+          startX = event.clientX
+          startScroll = scroller.scrollLeft
+          dragging = true
+          moved = false
+          pointerId = event.pointerId
+        },
+        { signal }
+      )
+      window.addEventListener(
+        'pointermove',
+        (event) => {
+          if (!dragging || event.pointerId !== pointerId) return
+          const delta = event.clientX - startX
+          if (Math.abs(delta) > 5) {
+            moved = true
+            this.dataset.dragging = 'true'
+            if (event.isTrusted && !this.hasPointerCapture(event.pointerId)) this.setPointerCapture(event.pointerId)
+            scroller.scrollLeft = startScroll - delta
+          }
+        },
+        { signal }
+      )
+      window.addEventListener(
+        'pointerup',
+        (event) => {
+          if (!dragging || event.pointerId !== pointerId) return
+          dragging = false
+          delete this.dataset.dragging
+          if (moved) snap(true)
+          else scroller.style.scrollSnapType = ''
+          pointerId = undefined
+        },
+        { signal }
+      )
+      window.addEventListener(
+        'pointercancel',
+        () => {
+          dragging = false
+          delete this.dataset.dragging
+          scroller.style.scrollSnapType = ''
+          pointerId = undefined
+        },
+        { signal }
+      )
+      this.addEventListener(
+        'click',
+        (event) => {
+          if (moved) {
+            event.preventDefault()
+            event.stopPropagation()
+            moved = false
+          }
+        },
+        { capture: true, signal }
+      )
+      this.addEventListener('dragstart', (event) => event.preventDefault(), { signal })
+      nav.addEventListener(
+        'focusin',
+        (event) => {
+          const link = event.target as HTMLAnchorElement
+          if (!link.matches(':focus-visible')) return
+          centerLink(link, true)
+        },
+        { signal }
+      )
+      const observer = new ResizeObserver(() => {
+        if (viewportWidth === scroller.clientWidth) return
+        viewportWidth = scroller.clientWidth
+        align()
+        update()
+      })
+      observer.observe(scroller)
+      document.addEventListener(
+        'astro:before-swap',
+        () => {
+          transitionScroll = scroller.scrollLeft
+        },
+        { signal }
+      )
+      document.addEventListener('astro:after-swap', syncPage, { signal })
+      document.fonts.ready.then(() => {
+        if (this.isConnected) {
+          align()
+          update()
+        }
+      })
+      this.cleanup = () => {
+        controller.abort()
+        observer.disconnect()
+        cancelAnimationFrame(frame)
+        cancelCenter()
+      }
+      align()
+      update()
+    }
+
+    disconnectedCallback() {
+      queueMicrotask(() => {
+        if (this.isConnected) return
+        this.cleanup?.()
+        this.cleanup = undefined
+      })
+    }
+  }
+
+  if (!customElements.get('ruler-navigation')) customElements.define('ruler-navigation', RulerNavigation)
+</script>
+
 <style>
-  header {
-    margin: 0 0 2rem 0;
+  .site-header {
+    display: grid;
+    grid-template-columns: 1fr minmax(0, 42rem) 1fr;
+    align-items: start;
+    gap: 1.5rem;
+    margin-bottom: 5rem;
   }
-
-  nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .nav-left {
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-  }
-
   .site-title {
-    font-weight: var(--font-weight-bold);
     color: var(--text-primary);
     text-decoration: none;
-    display: inline-block;
+    font-size: 1.125rem;
+    font-weight: 500;
+    padding-top: 1.9rem;
+    letter-spacing: -0.06em;
   }
-
-  .nav-links {
+  .site-title span {
+    color: var(--text-secondary);
+  }
+  .site-header :global(.theme-toggle) {
+    justify-self: end;
+    margin-top: 2rem;
+  }
+  ruler-navigation {
+    display: block;
+    min-width: 0;
+    --ruler-offset: 0px;
+    cursor: grab;
+    touch-action: pan-y;
+  }
+  .ruler {
+    height: 1.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .ruler::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(90deg, var(--text-tertiary) 0 1px, transparent 1px 12px) var(--ruler-offset)
+      0 / auto 8px repeat-x;
+    mask-image: linear-gradient(90deg, transparent, black 15%, black 85%, transparent);
+  }
+  .ruler::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0;
+    width: 1px;
+    height: 24px;
+    background: var(--text-primary);
+  }
+  .nav-scroller {
+    position: relative;
+    overflow-x: auto;
+    scrollbar-width: none;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    cursor: grab;
+    touch-action: pan-y;
+  }
+  .nav-scroller::-webkit-scrollbar {
+    display: none;
+  }
+  nav {
     display: flex;
-    gap: 1.25rem;
     align-items: center;
+    gap: 1.5rem;
+    width: max-content;
+    padding: 0.5rem 0;
   }
-
-  .nav-links a {
+  nav a {
+    display: block;
+    flex-shrink: 0;
+    scroll-snap-align: center;
+    padding: 0.4rem 0.85rem;
+    border-radius: 2rem;
     color: var(--text-secondary);
     text-decoration: none;
     font-size: var(--font-size-s);
-    transition: color 0.2s ease-out;
+    line-height: 1.5;
+    white-space: nowrap;
+    transition:
+      color 0.2s,
+      background-color 0.2s;
   }
-
-  .nav-links a:hover,
-  .nav-links a.active {
+  nav a[aria-current='page'] {
+    color: var(--text-primary);
+    background: var(--selection);
+  }
+  nav a[data-centered] {
     color: var(--text-primary);
   }
-
-  @media (max-width: 480px) {
-    .nav-left {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 0.5rem;
+  nav a:hover {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+  nav a:focus-visible {
+    outline: 2px solid var(--text-primary);
+    outline-offset: -2px;
+  }
+  ruler-navigation[data-dragging],
+  [data-dragging] .nav-scroller {
+    cursor: grabbing;
+    scroll-snap-type: none;
+    user-select: none;
+  }
+  [data-dragging] a {
+    cursor: grabbing;
+  }
+  .nav-hint {
+    display: block;
+    text-align: center;
+    font-size: 0.65rem;
+    color: var(--text-secondary);
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  ruler-navigation:hover .nav-hint,
+  ruler-navigation:focus-within .nav-hint {
+    opacity: 1;
+  }
+  @media (max-width: 768px) {
+    .site-header {
+      grid-template-columns: 1fr auto;
+      gap: 1rem;
+      margin-bottom: 3rem;
+    }
+    .site-title {
+      padding-top: 0;
+    }
+    .site-header :global(.theme-toggle) {
+      margin-top: 0.3rem;
+    }
+    ruler-navigation {
+      grid-row: 2;
+      grid-column: 1 / -1;
+    }
+    nav {
+      gap: 0.75rem;
     }
   }
 </style>

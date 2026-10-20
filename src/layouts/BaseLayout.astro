@@ -24,8 +24,9 @@ const finalWidth = shouldUseCustomWidth ? `${widthValue}rem` : '25rem'
   </head>
   <body
     data-centered={themeConfig.general.centeredLayout}
+    data-layout={type}
     style={`
-      max-width: ${finalWidth};
+      max-width: ${type === 'post' ? finalWidth : '80rem'};
       ${shouldUseCustomWidth ? `--content-width: ${widthValue}rem;` : ''}
     `}
   >

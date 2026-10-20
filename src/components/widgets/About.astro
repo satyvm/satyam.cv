@@ -6,7 +6,7 @@ const aboutEntry = await getEntry('about', 'about')
 const { Content } = aboutEntry ? await render(aboutEntry) : { Content: null }
 ---
 
-<main>
+<main class="about-content">
   <!-- What I Believe -->
   <section class="section">
     <h2 class="section-label">What I Believe</h2>
@@ -138,7 +138,7 @@ const { Content } = aboutEntry ? await render(aboutEntry) : { Content: null }
 
 <style>
   .entry {
-    margin-bottom: 0.25rem;
+    margin-bottom: 1.25rem;
   }
 
   .entry-link {
@@ -151,22 +151,21 @@ const { Content } = aboutEntry ? await render(aboutEntry) : { Content: null }
     display: flex;
     align-items: center;
     gap: 0.75rem;
-    min-height: 2.75rem;
+    min-height: 2rem;
   }
 
   .entry-title {
     color: var(--text-primary);
-    white-space: nowrap;
-    flex-shrink: 0;
+    white-space: normal;
+    font-weight: 500;
   }
 
   .entry-meta {
-    color: var(--text-primary);
-    opacity: 0.5;
-    letter-spacing: var(--spacing-s);
+    color: var(--text-secondary);
+    letter-spacing: -0.02em;
     flex-shrink: 0;
     white-space: nowrap;
-    font-size: var(--font-size-s);
+    font-size: 0.75rem;
     font-variant-numeric: tabular-nums;
     font-feature-settings:
       'tnum' 1,
@@ -180,15 +179,14 @@ const { Content } = aboutEntry ? await render(aboutEntry) : { Content: null }
 
   .entry-org {
     display: block;
-    color: var(--text-primary);
-    opacity: 0.5;
-    font-size: var(--font-size-s);
-    margin-top: -0.5rem;
-    margin-bottom: 0.5rem;
+    color: var(--text-secondary);
+    font-size: var(--page-body-size);
+    margin-bottom: 0.25rem;
   }
 
   .entry-summary {
-    font-size: var(--font-size-s);
+    font-size: var(--page-body-size);
+    line-height: var(--page-line-height);
     color: var(--text-primary);
     margin: 0;
     max-height: 0;
@@ -242,21 +240,22 @@ const { Content } = aboutEntry ? await render(aboutEntry) : { Content: null }
     }
   }
 
-  :global(.prose) {
+  :global(.about-content .prose) {
     margin-bottom: 0;
   }
 
-  :global(.prose p) {
+  :global(.about-content .prose p) {
+    font-size: var(--page-body-size);
     margin: 0 0 1.25rem 0;
-    line-height: 1.75;
+    line-height: var(--page-line-height);
     color: var(--text-primary);
   }
 
-  :global(.prose > *:last-child) {
+  :global(.about-content .prose > *:last-child) {
     margin-bottom: 0;
   }
 
-  :global(.prose ul) {
+  :global(.about-content .prose ul) {
     list-style: none;
     padding: 0;
     margin: 0 0 1rem 0;
@@ -265,12 +264,13 @@ const { Content } = aboutEntry ? await render(aboutEntry) : { Content: null }
     gap: 0.75rem;
   }
 
-  :global(.prose li) {
+  :global(.about-content .prose li) {
+    font-size: var(--page-body-size);
     line-height: 1.65;
     color: var(--text-secondary);
   }
 
-  :global(.prose strong) {
+  :global(.about-content .prose strong) {
     color: var(--text-primary);
     font-weight: var(--font-weight-bold);
   }

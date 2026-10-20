@@ -13,6 +13,10 @@
   --font-size-s: 0.8125rem;
   --font-size-m: 0.9375rem;
   --font-size-l: 1.0625rem;
+  --page-body-size: var(--font-size-s);
+  --page-heading-size: clamp(1.75rem, 2.35vw, 2.5rem);
+  --page-section-size: 1rem;
+  --page-line-height: 1.8;
 
   --font-weight-light: 350;
   --font-weight-regular: 400;
@@ -24,7 +28,7 @@
   /* Light Mode Colors (Default) */
   --bg: #ffffff;
   --text-primary: rgba(0, 0, 0, 0.85);
-  --text-secondary: rgba(0, 0, 0, 0.4);
+  --text-secondary: rgba(0, 0, 0, 0.58);
   --text-tertiary: rgba(0, 0, 0, 0.24);
   --border: rgba(0, 0, 0, 0.1);
   --selection: rgba(0, 0, 0, 0.08);
@@ -49,7 +53,7 @@
 html.light {
   --bg: #ffffff;
   --text-primary: rgba(0, 0, 0, 0.85);
-  --text-secondary: rgba(0, 0, 0, 0.4);
+  --text-secondary: rgba(0, 0, 0, 0.58);
   --text-tertiary: rgba(0, 0, 0, 0.24);
   --border: rgba(0, 0, 0, 0.1);
   --selection: rgba(0, 0, 0, 0.08);
@@ -74,7 +78,7 @@ html.light {
 html.dark {
   --bg: #1c1c1c;
   --text-primary: rgba(255, 255, 255, 0.9);
-  --text-secondary: rgba(255, 255, 255, 0.4);
+  --text-secondary: rgba(255, 255, 255, 0.6);
   --text-tertiary: rgba(255, 255, 255, 0.24);
   --border: rgba(255, 255, 255, 0.1);
   --selection: rgba(255, 255, 255, 0.08);
@@ -137,11 +141,26 @@ body[data-centered='false'] {
   margin: 0 1.5rem 0 8rem;
 }
 
+body[data-layout='page'] {
+  padding: 2rem 3rem 1.5rem;
+}
+
 @media (max-width: 768px) {
   body[data-centered='true'],
   body[data-centered='false'] {
     padding: 4rem 1.35rem 1.35rem;
     margin: 0 auto;
+  }
+
+  body[data-layout='page'] {
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 600px) {
+  :root {
+    --page-body-size: var(--font-size-m);
+    --page-heading-size: 2.5rem;
   }
 }
 
@@ -231,12 +250,11 @@ main {
 }
 
 .section-label {
-  font-size: var(--font-size-s);
+  font-size: 1.125rem;
   font-weight: var(--font-weight-bold);
   color: var(--text-secondary);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  margin: 0 0 0.5rem 0;
+  letter-spacing: var(--spacing-m);
+  margin: 0 0 1.25rem 0;
 }
 
 .item-list {

@@ -36,6 +36,7 @@
     "markdown-it": "^15.0.0",
     "mdast-util-to-string": "^4.0.0",
     "node-html-parser": "^9.0.1",
+    "pdfjs-dist": "^6.4.299",
     "reading-time": "^1.5.0",
     "rehype-katex": "^7.0.1",
     "remark-directive": "^4.0.0",
