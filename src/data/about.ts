@@ -58,7 +58,7 @@ export const education: ExperienceEntry[] = [
 export const projects: ExperienceEntry[] = [
   {
     period: '',
-    title: 'Blockchain SRE & Infrastructure Lab',
+    title: 'NodeOps',
     description:
       'One-command Ethereum node deployment on AWS with health monitoring, metrics, dashboards, and alerting.',
     meta: 'AWS · Terraform · Docker · Prometheus · Grafana',

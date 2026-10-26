@@ -218,7 +218,7 @@ const stickers = [
     display: block;
     position: relative;
     isolation: isolate;
-    overflow: clip;
+    container-type: inline-size;
     padding-top: 6rem;
     margin-top: 2.5rem;
   }
@@ -226,17 +226,21 @@ const stickers = [
     position: relative;
     z-index: 0;
     font-family: var(--serif);
-    font-size: clamp(5rem, 22vw, 18rem);
-    font-weight: 500;
-    line-height: 1.25;
-    letter-spacing: -0.085em;
+    width: fit-content;
+    font-size: min(22cqw, 22svh, 12rem);
+    font-style: italic;
+    font-weight: 400;
+    line-height: 1.4;
+    letter-spacing: 0;
+    white-space: nowrap;
     margin: 0;
-    padding-bottom: 0.1em;
+    padding: 0.05em 0.04em 0.25em;
   }
   .trail-layer {
     position: absolute;
     inset: 0;
     z-index: 1;
+    overflow: clip;
     pointer-events: none;
   }
   .trail-layer :global(.trail-sticker) {
@@ -261,9 +265,6 @@ const stickers = [
     name-playground {
       padding-top: 4rem;
       margin-top: 1rem;
-    }
-    .nameplate {
-      font-size: 23vw;
     }
   }
   @media (max-width: 800px) {
