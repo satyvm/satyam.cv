@@ -151,21 +151,23 @@ const { Content } = aboutEntry ? await render(aboutEntry) : { Content: null }
     display: flex;
     align-items: center;
     gap: 0.75rem;
-    min-height: 2rem;
+    min-height: 2.75rem;
   }
 
   .entry-title {
     color: var(--text-primary);
     white-space: normal;
-    font-weight: 500;
+    font-weight: var(--font-weight-regular);
+    min-width: 0;
   }
 
   .entry-meta {
     color: var(--text-secondary);
     letter-spacing: -0.02em;
     flex-shrink: 0;
-    white-space: nowrap;
-    font-size: 0.75rem;
+    max-width: 55%;
+    text-align: right;
+    font-size: var(--font-size-s);
     font-variant-numeric: tabular-nums;
     font-feature-settings:
       'tnum' 1,
@@ -180,7 +182,7 @@ const { Content } = aboutEntry ? await render(aboutEntry) : { Content: null }
   .entry-org {
     display: block;
     color: var(--text-secondary);
-    font-size: var(--page-body-size);
+    font-size: var(--font-size-s);
     margin-bottom: 0.25rem;
   }
 
@@ -231,6 +233,8 @@ const { Content } = aboutEntry ? await render(aboutEntry) : { Content: null }
     }
 
     .entry-meta {
+      max-width: none;
+      text-align: left;
       white-space: normal;
     }
 

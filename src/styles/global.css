@@ -13,10 +13,10 @@
   --font-size-s: 0.8125rem;
   --font-size-m: 0.9375rem;
   --font-size-l: 1.0625rem;
-  --page-body-size: var(--font-size-s);
+  --page-body-size: var(--font-size-m);
   --page-heading-size: clamp(1.75rem, 2.35vw, 2.5rem);
   --page-section-size: 1rem;
-  --page-line-height: 1.8;
+  --page-line-height: 1.75;
 
   --font-weight-light: 350;
   --font-weight-regular: 400;
