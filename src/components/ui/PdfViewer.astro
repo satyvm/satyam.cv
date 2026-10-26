@@ -3,7 +3,7 @@
     <div class="viewer-actions">
       <div class="zoom-controls">
         <button type="button" data-zoom="out" aria-label="Zoom out" disabled>−</button>
-        <button type="button" data-zoom="fit" aria-label="Fit document to width" disabled>100%</button>
+        <button type="button" data-zoom="fit" aria-label="Fit document to width (currently 100%)" disabled>100%</button>
         <button type="button" data-zoom="in" aria-label="Zoom in" disabled>+</button>
       </div>
       <a class="download" href="/satyam_resume.pdf" download="Satyam-Resume.pdf">
@@ -23,7 +23,7 @@
     </div>
   </div>
   <p class="viewer-status" role="status">Loading the resume…</p>
-  <div class="pdf-scroll" tabindex="0" aria-label="Resume document. Scroll to read; use the controls above to zoom.">
+  <div class="pdf-scroll" tabindex="-1" aria-label="Resume document. Scroll to read; use the controls above to zoom.">
     <div class="pdf-pages"></div>
   </div>
   <noscript><p><a href="/satyam_resume.pdf">Open the resume PDF</a> to read or download it.</p></noscript>
@@ -107,13 +107,16 @@
       const pages = this.querySelector<HTMLElement>('.pdf-pages')!
       const status = this.querySelector<HTMLElement>('.viewer-status')!
       const scroll = this.querySelector<HTMLElement>('.pdf-scroll')!
+      scroll.tabIndex = this.zoom > 1 ? 0 : -1
       const oldSheet = pages.querySelector<HTMLElement>('.pdf-sheet')
       const oldWidth = oldSheet?.offsetWidth
       const anchorX = (scroll.scrollLeft + scroll.clientWidth / 2) / (oldWidth || 1)
       const anchorY = scroll.scrollTop / (oldSheet?.offsetHeight || 1)
       const availableWidth = this.clientWidth - (window.matchMedia('(max-width: 600px)').matches ? 0 : 32)
       const fitButton = this.querySelector<HTMLButtonElement>('[data-zoom="fit"]')!
-      fitButton.textContent = `${Math.round(this.zoom * 100)}%`
+      const percentage = `${Math.round(this.zoom * 100)}%`
+      fitButton.textContent = percentage
+      fitButton.setAttribute('aria-label', `Fit document to width (currently ${percentage})`)
       this.querySelector<HTMLButtonElement>('[data-zoom="out"]')!.disabled = this.zoom <= 0.75
       this.querySelector<HTMLButtonElement>('[data-zoom="in"]')!.disabled = this.zoom >= 2
       const nextPages = document.createDocumentFragment()
@@ -124,6 +127,8 @@
           if (revision !== this.revision) return
           const scale = (Math.min(availableWidth, 816) / page.getViewport({ scale: 1 }).width) * this.zoom
           const viewport = page.getViewport({ scale })
+          const annotations = await page.getAnnotations({ intent: 'display' })
+          if (revision !== this.revision) return
           const sheet = document.createElement('div')
           sheet.className = 'pdf-sheet'
           sheet.style.width = `${viewport.width}px`
@@ -138,7 +143,32 @@
           text.className = 'textLayer'
           text.setAttribute('role', 'document')
           text.setAttribute('aria-label', `Resume, page ${number}`)
-          sheet.append(canvas, text)
+          const links = document.createElement('div')
+          links.className = 'pdf-links'
+          for (const annotation of annotations) {
+            if (
+              annotation.subtype !== 'Link' ||
+              typeof annotation.url !== 'string' ||
+              !/^(https?:|mailto:)/i.test(annotation.url)
+            ) {
+              continue
+            }
+            const [x1, y1] = viewport.convertToViewportPoint(annotation.rect[0], annotation.rect[1])
+            const [x2, y2] = viewport.convertToViewportPoint(annotation.rect[2], annotation.rect[3])
+            const link = document.createElement('a')
+            link.href = annotation.url
+            link.setAttribute('aria-label', annotation.url)
+            if (/^https?:/i.test(annotation.url)) {
+              link.target = '_blank'
+              link.rel = 'noopener noreferrer'
+            }
+            link.style.left = `${(Math.min(x1, x2) / viewport.width) * 100}%`
+            link.style.top = `${(Math.min(y1, y2) / viewport.height) * 100}%`
+            link.style.width = `${(Math.abs(x2 - x1) / viewport.width) * 100}%`
+            link.style.height = `${(Math.abs(y2 - y1) / viewport.height) * 100}%`
+            links.append(link)
+          }
+          sheet.append(canvas, text, links)
           nextPages.append(sheet)
           const task = page.render({ canvas, viewport, transform: [pixelRatio, 0, 0, pixelRatio, 0, 0] })
           this.renders.push(task)
@@ -311,6 +341,23 @@
   }
   .pdf-pages :global(.textLayer ::selection) {
     background: rgb(75 130 255 / 0.3);
+  }
+  .pdf-pages :global(.pdf-links) {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+  }
+  .pdf-pages :global(.pdf-links a) {
+    position: absolute;
+    pointer-events: auto;
+  }
+  .pdf-pages :global(.pdf-links a:hover) {
+    background: rgb(75 130 255 / 0.12);
+  }
+  .pdf-pages :global(.pdf-links a:focus-visible) {
+    outline: 2px solid #2563eb;
+    outline-offset: 2px;
   }
   @media (max-width: 600px) {
     .viewer-toolbar {
