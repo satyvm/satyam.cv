@@ -1,0 +1,379 @@
+<pdf-viewer>
+  <div class="viewer-toolbar" role="group" aria-label="PDF controls">
+    <div class="viewer-actions">
+      <div class="zoom-controls">
+        <button type="button" data-zoom="out" aria-label="Zoom out" disabled>−</button>
+        <button type="button" data-zoom="fit" aria-label="Fit document to width (currently 100%)" disabled>100%</button>
+        <button type="button" data-zoom="in" aria-label="Zoom in" disabled>+</button>
+      </div>
+      <a class="download" href="/satyam_resume.pdf" download="Satyam-Resume.pdf">
+        <span>Download PDF</span>
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.6"
+          aria-hidden="true"
+        >
+          <path d="M12 3v12m-5-5 5 5 5-5M5 16v5h14v-5"></path>
+        </svg>
+      </a>
+    </div>
+  </div>
+  <p class="viewer-status" role="status">Loading the resume…</p>
+  <div class="pdf-scroll" tabindex="-1" aria-label="Resume document. Scroll to read; use the controls above to zoom.">
+    <div class="pdf-pages"></div>
+  </div>
+  <noscript><p><a href="/satyam_resume.pdf">Open the resume PDF</a> to read or download it.</p></noscript>
+</pdf-viewer>
+
+<script>
+  import workerUrl from 'pdfjs-dist/build/pdf.worker.min.mjs?url'
+  import type { PDFDocumentLoadingTask, PDFDocumentProxy, RenderTask, TextLayer } from 'pdfjs-dist'
+
+  class PdfViewer extends HTMLElement {
+    private loadingTask?: PDFDocumentLoadingTask
+    private pdf?: PDFDocumentProxy
+    private renders: RenderTask[] = []
+    private textLayers: TextLayer[] = []
+    private observer?: ResizeObserver
+    private controller?: AbortController
+    private revision = 0
+    private zoom = 1
+    private resizeTimer?: ReturnType<typeof setTimeout>
+
+    async connectedCallback() {
+      this.controller = new AbortController()
+      const { signal } = this.controller
+      this.querySelectorAll<HTMLButtonElement>('[data-zoom]').forEach((button) => {
+        button.addEventListener(
+          'click',
+          () => {
+            this.zoom =
+              button.dataset.zoom === 'fit'
+                ? 1
+                : Math.max(0.75, Math.min(2, this.zoom + (button.dataset.zoom === 'in' ? 0.25 : -0.25)))
+            void this.renderPages()
+          },
+          { signal }
+        )
+      })
+      try {
+        const { getDocument, GlobalWorkerOptions } = await import('pdfjs-dist')
+        if (!this.isConnected) return
+        GlobalWorkerOptions.workerSrc = workerUrl
+        this.loadingTask = getDocument({ url: '/satyam_resume.pdf' })
+        this.pdf = await this.loadingTask.promise
+        if (!this.isConnected) return
+        this.querySelectorAll<HTMLButtonElement>('[data-zoom]').forEach((button) => {
+          button.disabled = false
+        })
+        let width = this.querySelector('.pdf-scroll')!.clientWidth
+        this.observer = new ResizeObserver(() => {
+          const nextWidth = this.querySelector('.pdf-scroll')!.clientWidth
+          if (nextWidth === width) return
+          width = nextWidth
+          clearTimeout(this.resizeTimer)
+          this.resizeTimer = setTimeout(() => {
+            void this.renderPages()
+          }, 100)
+        })
+        this.observer.observe(this.querySelector('.pdf-scroll')!)
+        await this.renderPages()
+      } catch {
+        this.showError()
+      }
+    }
+
+    private showError() {
+      if (!this.isConnected) return
+      this.querySelector<HTMLElement>('.viewer-status')!.hidden = false
+      this.querySelector('.viewer-status')!.textContent =
+        'The preview couldn’t load. You can still download the PDF or open the original below.'
+      this.dataset.state = 'error'
+    }
+
+    private async renderPages() {
+      if (!this.pdf) return
+      const revision = ++this.revision
+      this.dataset.state = 'rendering'
+      this.dataset.zoomed = String(this.zoom > 1)
+      this.renders.forEach((task) => task.cancel())
+      this.textLayers.forEach((layer) => layer.cancel())
+      this.renders = []
+      this.textLayers = []
+      const pages = this.querySelector<HTMLElement>('.pdf-pages')!
+      const status = this.querySelector<HTMLElement>('.viewer-status')!
+      const scroll = this.querySelector<HTMLElement>('.pdf-scroll')!
+      scroll.tabIndex = this.zoom > 1 ? 0 : -1
+      const oldSheet = pages.querySelector<HTMLElement>('.pdf-sheet')
+      const oldWidth = oldSheet?.offsetWidth
+      const anchorX = (scroll.scrollLeft + scroll.clientWidth / 2) / (oldWidth || 1)
+      const anchorY = scroll.scrollTop / (oldSheet?.offsetHeight || 1)
+      const availableWidth = this.clientWidth - (window.matchMedia('(max-width: 600px)').matches ? 0 : 32)
+      const fitButton = this.querySelector<HTMLButtonElement>('[data-zoom="fit"]')!
+      const percentage = `${Math.round(this.zoom * 100)}%`
+      fitButton.textContent = percentage
+      fitButton.setAttribute('aria-label', `Fit document to width (currently ${percentage})`)
+      this.querySelector<HTMLButtonElement>('[data-zoom="out"]')!.disabled = this.zoom <= 0.75
+      this.querySelector<HTMLButtonElement>('[data-zoom="in"]')!.disabled = this.zoom >= 2
+      const nextPages = document.createDocumentFragment()
+      try {
+        const { TextLayer } = await import('pdfjs-dist')
+        for (let number = 1; number <= this.pdf.numPages; number++) {
+          const page = await this.pdf.getPage(number)
+          if (revision !== this.revision) return
+          const scale = (Math.min(availableWidth, 816) / page.getViewport({ scale: 1 }).width) * this.zoom
+          const viewport = page.getViewport({ scale })
+          const annotations = await page.getAnnotations({ intent: 'display' })
+          if (revision !== this.revision) return
+          const sheet = document.createElement('div')
+          sheet.className = 'pdf-sheet'
+          sheet.style.width = `${viewport.width}px`
+          sheet.style.height = `${viewport.height}px`
+          sheet.style.setProperty('--total-scale-factor', String(scale))
+          const canvas = document.createElement('canvas')
+          canvas.setAttribute('aria-hidden', 'true')
+          const pixelRatio = Math.min(window.devicePixelRatio || 1, 2)
+          canvas.width = Math.floor(viewport.width * pixelRatio)
+          canvas.height = Math.floor(viewport.height * pixelRatio)
+          const text = document.createElement('div')
+          text.className = 'textLayer'
+          text.setAttribute('role', 'document')
+          text.setAttribute('aria-label', `Resume, page ${number}`)
+          const links = document.createElement('div')
+          links.className = 'pdf-links'
+          for (const annotation of annotations) {
+            if (
+              annotation.subtype !== 'Link' ||
+              typeof annotation.url !== 'string' ||
+              !/^(https?:|mailto:)/i.test(annotation.url)
+            ) {
+              continue
+            }
+            const [x1, y1] = viewport.convertToViewportPoint(annotation.rect[0], annotation.rect[1])
+            const [x2, y2] = viewport.convertToViewportPoint(annotation.rect[2], annotation.rect[3])
+            const link = document.createElement('a')
+            link.href = annotation.url
+            link.setAttribute('aria-label', annotation.url)
+            if (/^https?:/i.test(annotation.url)) {
+              link.target = '_blank'
+              link.rel = 'noopener noreferrer'
+            }
+            link.style.left = `${(Math.min(x1, x2) / viewport.width) * 100}%`
+            link.style.top = `${(Math.min(y1, y2) / viewport.height) * 100}%`
+            link.style.width = `${(Math.abs(x2 - x1) / viewport.width) * 100}%`
+            link.style.height = `${(Math.abs(y2 - y1) / viewport.height) * 100}%`
+            links.append(link)
+          }
+          sheet.append(canvas, text, links)
+          nextPages.append(sheet)
+          const task = page.render({ canvas, viewport, transform: [pixelRatio, 0, 0, pixelRatio, 0, 0] })
+          this.renders.push(task)
+          const layer = new TextLayer({ container: text, viewport, textContentSource: page.streamTextContent() })
+          this.textLayers.push(layer)
+          await Promise.all([task.promise, layer.render()])
+          if (revision !== this.revision) return
+        }
+        pages.replaceChildren(nextPages)
+        const sheet = pages.querySelector<HTMLElement>('.pdf-sheet')!
+        scroll.scrollLeft = this.zoom > 1 && oldWidth ? anchorX * sheet.offsetWidth - scroll.clientWidth / 2 : 0
+        scroll.scrollTop = this.zoom > 1 ? anchorY * sheet.offsetHeight : 0
+        status.hidden = true
+        this.dataset.state = 'ready'
+      } catch {
+        if (revision === this.revision) this.showError()
+      }
+    }
+
+    disconnectedCallback() {
+      this.revision++
+      this.controller?.abort()
+      this.observer?.disconnect()
+      clearTimeout(this.resizeTimer)
+      this.renders.forEach((task) => task.cancel())
+      this.textLayers.forEach((layer) => layer.cancel())
+      void this.loadingTask?.destroy()
+    }
+  }
+
+  if (!customElements.get('pdf-viewer')) customElements.define('pdf-viewer', PdfViewer)
+</script>
+
+<style>
+  pdf-viewer {
+    display: block;
+    min-width: 0;
+  }
+  .viewer-toolbar {
+    display: flex;
+    align-items: center;
+    padding: 0 1rem;
+    margin-bottom: 3rem;
+  }
+  .viewer-actions,
+  .zoom-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .viewer-actions {
+    width: 100%;
+    justify-content: space-between;
+    gap: 1.25rem;
+  }
+  button {
+    font: inherit;
+    font-size: var(--font-size-s);
+    color: var(--text-primary);
+    border: none;
+    background: none;
+    min-width: 2rem;
+    min-height: 2rem;
+    cursor: pointer;
+    border-radius: 2rem;
+    background: var(--code-bg);
+    padding: 0 0.5rem;
+  }
+  button:hover {
+    background: var(--selection);
+  }
+  button:disabled {
+    color: var(--text-tertiary);
+    cursor: default;
+  }
+  .download {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+    padding: 0.35rem 0.8rem;
+    min-height: 2rem;
+    box-sizing: border-box;
+    border-radius: 2rem;
+    background: var(--code-bg);
+    color: var(--text-primary);
+    font-size: var(--font-size-s);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .download:hover {
+    background: var(--selection);
+  }
+  .download:focus-visible,
+  button:focus-visible {
+    outline: 2px solid var(--text-primary);
+    outline-offset: 3px;
+  }
+  .viewer-status {
+    padding: 1rem 1.5rem;
+    color: var(--text-secondary);
+    font-size: var(--font-size-s);
+  }
+  .pdf-scroll {
+    overflow: auto;
+    max-height: min(65dvh, 40rem);
+    scrollbar-width: auto;
+    overscroll-behavior: contain;
+  }
+  pdf-viewer:not([data-zoomed='true']) .pdf-scroll {
+    overflow: visible;
+    max-height: none;
+  }
+  .pdf-pages {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 0 1rem 2.5rem;
+    width: max-content;
+    min-width: 100%;
+    box-sizing: border-box;
+  }
+  .pdf-pages :global(.pdf-sheet) {
+    position: relative;
+    flex-shrink: 0;
+    background: white;
+    color: black;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    box-shadow: 0 0 25px 5px rgb(0 0 0 / 0.04);
+  }
+  .pdf-pages :global(canvas) {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  .pdf-pages :global(.textLayer) {
+    position: absolute;
+    inset: 0;
+    overflow: clip;
+    line-height: 1;
+    letter-spacing: normal;
+    word-spacing: normal;
+    text-align: initial;
+    text-size-adjust: none;
+    transform-origin: 0 0;
+    --min-font-size: 1;
+    --text-scale-factor: calc(var(--total-scale-factor) * var(--min-font-size));
+    --min-font-size-inv: calc(1 / var(--min-font-size));
+  }
+  .pdf-pages :global(.textLayer :is(span, br)) {
+    color: transparent;
+    position: absolute;
+    white-space: pre;
+    cursor: text;
+    transform-origin: 0 0;
+    user-select: text;
+  }
+  .pdf-pages :global(.textLayer > :not(.markedContent)),
+  .pdf-pages :global(.markedContent span:not(.markedContent)) {
+    z-index: 1;
+    --font-height: 0;
+    --scale-x: 1;
+    --rotate: 0deg;
+    font-size: calc(var(--text-scale-factor) * var(--font-height));
+    transform: rotate(var(--rotate)) scaleX(var(--scale-x)) scale(var(--min-font-size-inv));
+  }
+  .pdf-pages :global(.markedContent) {
+    display: contents;
+  }
+  .pdf-pages :global(.textLayer ::selection) {
+    background: rgb(75 130 255 / 0.3);
+  }
+  .pdf-pages :global(.pdf-links) {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+  }
+  .pdf-pages :global(.pdf-links a) {
+    position: absolute;
+    pointer-events: auto;
+  }
+  .pdf-pages :global(.pdf-links a:hover) {
+    background: rgb(75 130 255 / 0.12);
+  }
+  .pdf-pages :global(.pdf-links a:focus-visible) {
+    outline: 2px solid #2563eb;
+    outline-offset: 2px;
+  }
+  @media (max-width: 600px) {
+    .viewer-toolbar {
+      padding: 0;
+      margin-bottom: 1.5rem;
+    }
+    .viewer-actions {
+      width: 100%;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+    .pdf-pages {
+      padding: 0 0 1.5rem;
+    }
+    .download {
+      font-size: 0.75rem;
+    }
+  }
+</style>

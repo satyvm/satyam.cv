@@ -1,0 +1,280 @@
+---
+const stickers = [
+  {
+    label: 'Basketball',
+    color: '#fff200',
+    ink: '#806700',
+    path: 'M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18ZM3 12h18M12 3v18M5.5 5.5c8 2 11 5 13 13M5.5 18.5c8-2 11-5 13-13'
+  },
+  {
+    label: 'Code',
+    color: '#ded0ff',
+    ink: '#7027e8',
+    path: 'm8 7-5 5 5 5m8-10 5 5-5 5m-3-13-2 20'
+  },
+  {
+    label: 'Music',
+    color: '#ffc0e6',
+    ink: '#dd2596',
+    path: 'M10 16V5l10-2v11M10 5l10-2v5l-10 2M10 16a3 3 0 1 1-3-3c1.7 0 3 1.3 3 3Zm10-2a3 3 0 1 1-3-3c1.7 0 3 1.3 3 3Z'
+  },
+  {
+    label: 'Building',
+    color: '#c4ffb8',
+    ink: '#168b14',
+    path: 'm12 3 9 5-9 5-9-5 9-5Zm-9 5v9l9 5 9-5V8M12 13v9'
+  },
+  {
+    label: 'Sketching',
+    color: '#ded0ff',
+    ink: '#7027e8',
+    path: 'm4 16 12-12 4 4-12 12-5 1 1-5Zm10-10 4 4M4 16l4 4'
+  },
+  {
+    label: 'Curiosity',
+    color: '#99ddff',
+    ink: '#0967d1',
+    path: 'M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18ZM3 12h18M12 3c-5 5-5 13 0 18 5-5 5-13 0-18Z'
+  }
+]
+---
+
+<name-playground>
+  <div class="trail-layer" aria-hidden="true"></div>
+  <div class="nameplate" aria-hidden="true">Satyam.</div>
+  <template>
+    {
+      stickers.map((sticker) => (
+        <span
+          class="trail-sticker"
+          data-color={sticker.color}
+          style={`--sticker-bg: ${sticker.color}; --sticker-ink: ${sticker.ink};`}
+        >
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.65"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d={sticker.path} />
+          </svg>
+        </span>
+      ))
+    }
+  </template>
+</name-playground>
+
+<script>
+  class NamePlayground extends HTMLElement {
+    private cleanup?: () => void
+
+    connectedCallback() {
+      const controller = new AbortController()
+      const { signal } = controller
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
+      const hover = window.matchMedia('(min-width: 801px) and (any-hover: hover)')
+      const layer = this.querySelector<HTMLElement>('.trail-layer')!
+      const templates = Array.from(
+        this.querySelector<HTMLTemplateElement>('template')!.content.children
+      ) as HTMLElement[]
+      const timers = new Set<ReturnType<typeof setTimeout>>()
+      const stamps: { element: HTMLElement; rotation: number; born: number; leaving: boolean }[] = []
+      let retirementTimer: ReturnType<typeof setTimeout> | undefined
+      let lastRemoval = 0
+      let lastColor = ''
+      let lastPoint: { x: number; y: number } | null = null
+      let pointer: { x: number; y: number } | null = null
+      let lastScroll = 0
+      const enabled = () => !reducedMotion.matches && hover.matches && !document.hidden
+      const later = (callback: () => void, delay: number) => {
+        const timer = setTimeout(() => {
+          timers.delete(timer)
+          callback()
+        }, delay)
+        timers.add(timer)
+        return timer
+      }
+      const scheduleRetirement = () => {
+        if (retirementTimer !== undefined) return
+        const stamp = stamps.find((item) => !item.leaving)
+        if (!stamp) return
+        const now = performance.now()
+        const delay = Math.max(0, stamp.born + 750 - now, lastRemoval + 50 - now)
+        retirementTimer = later(() => {
+          retirementTimer = undefined
+          stamp.leaving = true
+          lastRemoval = performance.now()
+          stamp.element.style.transition = 'transform 1000ms cubic-bezier(0.87, 0, 0.13, 1)'
+          stamp.element.style.transform = `translate(-50%, -50%) rotate(${stamp.rotation}deg) scale(0)`
+          later(() => {
+            stamp.element.remove()
+            const index = stamps.indexOf(stamp)
+            if (index >= 0) stamps.splice(index, 1)
+          }, 1000)
+          scheduleRetirement()
+        }, delay)
+      }
+      const spawn = (clientX: number, clientY: number) => {
+        if (!enabled()) return
+        const bounds = this.getBoundingClientRect()
+        if (clientX < bounds.left || clientX > bounds.right || clientY < bounds.top || clientY > bounds.bottom) return
+        const choices = templates.filter((item) => item.dataset.color !== lastColor)
+        const template = choices[Math.floor(Math.random() * choices.length)]
+        const element = template.cloneNode(true) as HTMLElement
+        lastColor = template.dataset.color || ''
+        const rotation = (Math.random() - 0.5) * 50
+        element.style.left = `${clientX - bounds.left}px`
+        element.style.top = `${clientY - bounds.top}px`
+        element.style.transform = `translate(-50%, -50%) rotate(${rotation}deg) scale(0)`
+        element.style.transition = 'transform 750ms cubic-bezier(0.07, 0.5, 0.5, 1)'
+        layer.append(element)
+        const stamp = { element, rotation, born: performance.now(), leaving: false }
+        stamps.push(stamp)
+        later(() => {
+          if (!stamp.leaving) element.style.transform = `translate(-50%, -50%) rotate(${rotation}deg) scale(1)`
+        }, 10)
+        if (stamps.length > 80) {
+          const oldest = stamps.shift()!
+          oldest.element.remove()
+        }
+        scheduleRetirement()
+      }
+      document.addEventListener(
+        'pointermove',
+        (event) => {
+          if (event.pointerType !== 'mouse' || !enabled()) return
+          pointer = { x: event.clientX, y: event.clientY }
+          const bounds = this.getBoundingClientRect()
+          if (
+            pointer.x < bounds.left ||
+            pointer.x > bounds.right ||
+            pointer.y < bounds.top ||
+            pointer.y > bounds.bottom
+          ) {
+            lastPoint = null
+            return
+          }
+          if (!lastPoint) {
+            lastPoint = pointer
+            return
+          }
+          if (Math.hypot(pointer.x - lastPoint.x, pointer.y - lastPoint.y) < 35) return
+          spawn(pointer.x, pointer.y)
+          lastPoint = pointer
+        },
+        { passive: true, signal }
+      )
+      this.addEventListener(
+        'pointerleave',
+        () => {
+          lastPoint = null
+        },
+        { signal }
+      )
+      window.addEventListener(
+        'scroll',
+        () => {
+          if (!pointer || performance.now() - lastScroll < 50) return
+          lastScroll = performance.now()
+          spawn(pointer.x, pointer.y)
+        },
+        { passive: true, signal }
+      )
+      const clear = () => {
+        retirementTimer = undefined
+        timers.forEach(clearTimeout)
+        timers.clear()
+        stamps.length = 0
+        layer.replaceChildren()
+        pointer = lastPoint = null
+      }
+      reducedMotion.addEventListener('change', clear, { signal })
+      hover.addEventListener('change', clear, { signal })
+      document.addEventListener(
+        'visibilitychange',
+        () => {
+          if (document.hidden) clear()
+        },
+        { signal }
+      )
+      this.cleanup = () => {
+        controller.abort()
+        clear()
+      }
+    }
+
+    disconnectedCallback() {
+      this.cleanup?.()
+    }
+  }
+
+  if (!customElements.get('name-playground')) customElements.define('name-playground', NamePlayground)
+</script>
+
+<style>
+  name-playground {
+    display: block;
+    position: relative;
+    isolation: isolate;
+    container-type: inline-size;
+    padding-top: 6rem;
+    margin-top: 2.5rem;
+  }
+  .nameplate {
+    position: relative;
+    z-index: 0;
+    font-family: var(--serif);
+    width: fit-content;
+    font-size: min(22cqw, 22svh, 12rem);
+    font-style: italic;
+    font-weight: 400;
+    line-height: 1.4;
+    letter-spacing: 0;
+    white-space: nowrap;
+    margin: 0;
+    padding: 0.05em 0.04em 0.25em;
+  }
+  .trail-layer {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    overflow: clip;
+    pointer-events: none;
+  }
+  .trail-layer :global(.trail-sticker) {
+    position: absolute;
+    display: grid;
+    place-items: center;
+    width: min(4.45vw, 64px);
+    height: min(4.45vw, 64px);
+    box-sizing: border-box;
+    padding: 0.7rem;
+    border-radius: 50%;
+    color: var(--sticker-ink);
+    background: var(--sticker-bg);
+    transform-origin: center;
+    will-change: transform;
+  }
+  .trail-layer :global(svg) {
+    width: 100%;
+    height: 100%;
+  }
+  @media (max-width: 600px) {
+    name-playground {
+      padding-top: 4rem;
+      margin-top: 1rem;
+    }
+  }
+  @media (max-width: 800px) {
+    .trail-layer {
+      display: none;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .trail-layer {
+      display: none;
+    }
+  }
+</style>

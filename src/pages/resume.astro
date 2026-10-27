@@ -1,0 +1,42 @@
+---
+import IndexLayout from '@/layouts/IndexLayout.astro'
+import PdfViewer from '@/components/ui/PdfViewer.astro'
+import { themeConfig } from '@/config'
+---
+
+<IndexLayout title={`Resume - ${themeConfig.site.title}`} description="Satyam’s experience, projects, and education.">
+  <section class="resume-document" aria-labelledby="resume-title">
+    <h1 id="resume-title" class="sr-only">Resume</h1>
+    <PdfViewer />
+    <a class="original-link" href="/satyam_resume.pdf" target="_blank" rel="noopener noreferrer"
+      >Open original PDF <span aria-hidden="true">↗</span></a
+    >
+  </section>
+</IndexLayout>
+
+<style>
+  .resume-document {
+    margin-top: -1.25rem;
+  }
+  .original-link {
+    display: block;
+    width: fit-content;
+    margin: 0 1rem 0 auto;
+    color: var(--text-secondary);
+    font-size: var(--font-size-s);
+    text-decoration: none;
+  }
+  .original-link:hover {
+    color: var(--text-primary);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+  @media (max-width: 600px) {
+    .resume-document {
+      margin-top: 0;
+    }
+    .original-link {
+      margin-right: 0;
+    }
+  }
+</style>
