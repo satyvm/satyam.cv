@@ -27,9 +27,9 @@
   "dependencies": {
     "@astrojs/mdx": "^7.0.5",
     "@astrojs/rss": "^4.0.19",
-    "@astrojs/sitemap": "^3.7.3",
-    "astro": "^7.1.6",
-    "astro-og-canvas": "^0.13.0",
+    "@astrojs/sitemap": "^3.7.4",
+    "astro": "^7.4.2",
+    "astro-og-canvas": "^0.13.2",
     "canvaskit-wasm": "^0.41.1",
     "feed": "^6.0.0",
     "katex": "^0.18.1",
@@ -46,7 +46,7 @@
     "unist-util-visit": "^5.1.0"
   },
   "devDependencies": {
-    "@astrojs/check": "^0.9.10",
+    "@astrojs/check": "^0.9.12",
     "@eslint/js": "^10.0.1",
     "@types/markdown-it": "^14.1.2",
     "@types/sanitize-html": "^2.16.1",
